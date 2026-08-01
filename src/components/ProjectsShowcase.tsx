@@ -11,7 +11,7 @@ type ProjectsShowcaseProps = {
   showListings?: boolean;
 };
 
-const AUTO_ADVANCE_MS = 2000;
+const AUTO_ADVANCE_MS = 4500;
 
 export function ProjectsShowcase({ showListings = true }: ProjectsShowcaseProps) {
   const [activeId, setActiveId] = useState(projectCategories[0]?.id ?? "");
