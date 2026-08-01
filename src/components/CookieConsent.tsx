@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { captureAttribution } from "@/lib/attribution";
 import { getConsent, saveConsent, type ConsentCategories } from "@/lib/consent";
@@ -111,7 +112,11 @@ export function CookieConsent() {
                     We use cookies to run this site securely, understand how visitors
                     explore our projects, and — only with your permission — personalise
                     our marketing and follow up with people who show interest. You can
-                    change your choice anytime from the footer.
+                    change your choice anytime from the footer. See our{" "}
+                    <Link href="/privacy" className="underline hover:text-white">
+                      Privacy Policy
+                    </Link>{" "}
+                    for details.
                   </p>
                 </div>
               </div>

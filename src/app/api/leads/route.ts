@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { sendLeadNotification } from "@/lib/email";
 
 type LeadAttribution = {
   landingPage?: string;
@@ -58,8 +59,15 @@ export async function POST(request: Request) {
     userAgent: request.headers.get("user-agent"),
   };
 
-  // Persists to server logs for now. Swap for CRM / email / Sheets later.
   console.info("[lead]", JSON.stringify(lead));
+
+  try {
+    await sendLeadNotification(lead);
+  } catch (err) {
+    // Email delivery is best-effort — the lead is already logged above,
+    // so a notification failure shouldn't fail the visitor's submission.
+    console.error("[lead] email notification failed", err);
+  }
 
   return NextResponse.json({ ok: true });
 }

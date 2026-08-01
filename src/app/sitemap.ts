@@ -7,6 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${siteConfig.siteUrl}/projects`, priority: 0.9, changeFrequency: "weekly" },
     { url: `${siteConfig.siteUrl}/about`, priority: 0.6, changeFrequency: "monthly" },
     { url: `${siteConfig.siteUrl}/contact`, priority: 0.6, changeFrequency: "monthly" },
+    { url: `${siteConfig.siteUrl}/privacy`, priority: 0.3, changeFrequency: "yearly" },
   ];
 
   const projectRoutes: MetadataRoute.Sitemap = getAllProjectSlugs().map((slug) => ({

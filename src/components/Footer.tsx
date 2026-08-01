@@ -93,13 +93,21 @@ export function Footer() {
           <p>
             © {new Date().getFullYear()} {siteConfig.legalName}. All rights reserved.
           </p>
-          <button
-            type="button"
-            onClick={() => window.dispatchEvent(new CustomEvent("open-cookie-preferences"))}
-            className="underline decoration-white/30 underline-offset-4 transition hover:text-white"
-          >
-            Manage cookie preferences
-          </button>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <Link
+              href="/privacy"
+              className="underline decoration-white/30 underline-offset-4 transition hover:text-white"
+            >
+              Privacy Policy
+            </Link>
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new CustomEvent("open-cookie-preferences"))}
+              className="underline decoration-white/30 underline-offset-4 transition hover:text-white"
+            >
+              Manage cookie preferences
+            </button>
+          </div>
         </div>
       </div>
     </footer>

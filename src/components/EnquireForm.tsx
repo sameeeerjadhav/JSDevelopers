@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
 import { getAttribution } from "@/lib/attribution";
 import { hasConsent } from "@/lib/consent";
@@ -151,8 +152,11 @@ export function EnquireForm() {
             />
             <span>
               I agree to be contacted by JS Garden Developers about my enquiry
-              and understand my details will be handled as described in the
-              privacy notice.
+              and understand my details will be handled as described in the{" "}
+              <Link href="/privacy" className="text-forest underline hover:no-underline">
+                privacy policy
+              </Link>
+              .
             </span>
           </label>
 
