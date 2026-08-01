@@ -1,9 +1,11 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { projectCategories, projects, siteConfig } from "@/lib/site";
+import { trackEvent } from "@/lib/tracking";
 
 type ProjectsShowcaseProps = {
   showListings?: boolean;
@@ -65,11 +67,12 @@ export function ProjectsShowcase({ showListings = true }: ProjectsShowcaseProps)
             className="relative aspect-[4/3] overflow-hidden bg-navy"
           >
             {/* Sharp corners intentionally — matches reference style */}
-            <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: `url('${active.image}')` }}
-              role="img"
-              aria-label={active.imageAlt}
+            <Image
+              src={active.image}
+              alt={active.imageAlt}
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover"
             />
           </motion.div>
         </AnimatePresence>
@@ -109,50 +112,58 @@ export function ProjectsShowcase({ showListings = true }: ProjectsShowcaseProps)
               {listed.map((project) => (
                 <article
                   key={project.id}
-                  className="border border-navy/10 bg-white p-6"
+                  className="flex flex-col border border-navy/10 bg-white p-6 transition hover:border-forest/40 hover:shadow-[0_18px_40px_-28px_rgba(10,31,61,0.45)]"
                 >
-                  <div className="flex items-start justify-between gap-3">
-                    <h3 className="font-display text-xl font-semibold text-navy">
-                      {project.name}
-                    </h3>
-                    <span className="shrink-0 bg-mist px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-forest">
-                      {project.status}
-                    </span>
-                  </div>
-                  <p className="mt-2 text-sm font-medium text-forest">
-                    {project.location}
-                  </p>
-                  <p className="mt-3 text-sm leading-relaxed text-muted">
-                    {project.description}
-                  </p>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {project.badges.map((badge) => (
-                      <span
-                        key={badge}
-                        className="border border-navy/10 px-2.5 py-1 text-xs font-medium text-navy"
-                      >
-                        {badge}
+                  <Link href={`/projects/${project.id}`} className="block flex-1">
+                    <div className="flex items-start justify-between gap-3">
+                      <h3 className="font-display text-xl font-semibold text-navy hover:text-forest">
+                        {project.name}
+                      </h3>
+                      <span className="shrink-0 bg-mist px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-forest">
+                        {project.status}
                       </span>
-                    ))}
-                  </div>
+                    </div>
+                    <p className="mt-2 text-sm font-medium text-forest">
+                      {project.location}
+                    </p>
+                    <p className="mt-3 text-sm leading-relaxed text-muted">
+                      {project.description}
+                    </p>
+                    <p className="mt-3 text-sm font-semibold text-coral">
+                      {project.priceLabel}
+                    </p>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {project.badges.map((badge) => (
+                        <span
+                          key={badge}
+                          className="border border-navy/10 px-2.5 py-1 text-xs font-medium text-navy"
+                        >
+                          {badge}
+                        </span>
+                      ))}
+                    </div>
+                  </Link>
                   <div className="mt-6 flex gap-2">
+                    <Link
+                      href={`/projects/${project.id}`}
+                      className="flex-1 bg-navy px-4 py-2.5 text-center text-xs font-semibold uppercase tracking-wide text-white hover:bg-navy-deep"
+                    >
+                      View details
+                    </Link>
                     <a
                       href={`https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(`Hi, I'm interested in ${project.name}.`)}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 bg-forest px-4 py-2.5 text-center text-xs font-semibold uppercase tracking-wide text-white hover:bg-navy"
+                      onClick={() =>
+                        trackEvent("whatsapp_click", {
+                          location: "project_card",
+                          project: project.name,
+                        })
+                      }
+                      className="flex-1 bg-[#25D366] px-4 py-2.5 text-center text-xs font-semibold uppercase tracking-wide text-white hover:brightness-95"
                     >
                       WhatsApp
                     </a>
-                    <Link
-                      href="/contact"
-                      className="flex-1 border border-forest px-4 py-2.5 text-center text-xs font-semibold uppercase tracking-wide text-forest hover:bg-mist"
-                      onClick={() =>
-                        sessionStorage.setItem("interestedProject", project.name)
-                      }
-                    >
-                      Enquire
-                    </Link>
                   </div>
                 </article>
               ))}

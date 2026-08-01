@@ -1,4 +1,7 @@
+"use client";
+
 import { siteConfig } from "@/lib/site";
+import { trackEvent } from "@/lib/tracking";
 
 export function WhatsAppFloat() {
   const href = `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent("Hi JS Garden Developers, I'd like to know more about your plots.")}`;
@@ -9,6 +12,7 @@ export function WhatsAppFloat() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
+      onClick={() => trackEvent("whatsapp_click", { location: "floating_button" })}
       className="fixed bottom-5 right-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-lg transition hover:scale-105"
     >
       <svg viewBox="0 0 24 24" className="h-7 w-7 fill-current" aria-hidden>

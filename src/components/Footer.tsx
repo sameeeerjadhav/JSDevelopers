@@ -1,6 +1,10 @@
+"use client";
+
+import Image from "next/image";
 import Link from "next/link";
 import { SiteLogo } from "@/components/SiteLogo";
 import { navLinks, projects, siteConfig } from "@/lib/site";
+import { trackEvent } from "@/lib/tracking";
 
 export function Footer() {
   return (
@@ -10,19 +14,22 @@ export function Footer() {
           <SiteLogo variant="footer" />
         </div>
 
-        <div className="overflow-hidden">
-          <div
-            className="bg-cover bg-center px-6 py-12 text-center md:px-10"
-            style={{
-              backgroundImage:
-                "linear-gradient(rgba(6,20,40,0.82), rgba(6,20,40,0.82)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1800&q=80')",
-            }}
-          >
+        <div className="relative overflow-hidden">
+          <Image
+            src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1800&q=80"
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-navy-deep/82" />
+          <div className="relative px-6 py-12 text-center md:px-10">
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/70">
               Call us
             </p>
             <a
               href={`tel:+91${siteConfig.phone}`}
+              onClick={() => trackEvent("call_click", { location: "footer_cta" })}
               className="mt-3 block font-display text-4xl font-semibold md:text-5xl"
             >
               {siteConfig.phoneDisplay}
@@ -70,7 +77,7 @@ export function Footer() {
               {projects.map((project) => (
                 <li key={project.id}>
                   <Link
-                    href="/projects#listings"
+                    href={`/projects/${project.id}`}
                     className="font-medium text-white hover:text-leaf"
                   >
                     {project.name}
@@ -86,7 +93,13 @@ export function Footer() {
           <p>
             © {new Date().getFullYear()} {siteConfig.legalName}. All rights reserved.
           </p>
-          <p>Cookie preferences available via the consent banner.</p>
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new CustomEvent("open-cookie-preferences"))}
+            className="underline decoration-white/30 underline-offset-4 transition hover:text-white"
+          >
+            Manage cookie preferences
+          </button>
         </div>
       </div>
     </footer>

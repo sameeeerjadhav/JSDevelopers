@@ -1,5 +1,19 @@
 import { NextResponse } from "next/server";
 
+type LeadAttribution = {
+  landingPage?: string;
+  referrer?: string;
+  utmSource?: string | null;
+  utmMedium?: string | null;
+  utmCampaign?: string | null;
+  utmTerm?: string | null;
+  utmContent?: string | null;
+  gclid?: string | null;
+  fbclid?: string | null;
+  device?: string;
+  capturedAt?: string;
+};
+
 type LeadBody = {
   name?: string;
   phone?: string;
@@ -7,6 +21,7 @@ type LeadBody = {
   project?: string;
   message?: string;
   consent?: boolean;
+  attribution?: LeadAttribution | null;
 };
 
 export async function POST(request: Request) {
@@ -38,6 +53,7 @@ export async function POST(request: Request) {
     project: project || "General enquiry",
     message: message || null,
     consent: true,
+    attribution: body.attribution ?? null,
     createdAt: new Date().toISOString(),
     userAgent: request.headers.get("user-agent"),
   };

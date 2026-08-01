@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
@@ -7,10 +8,16 @@ import { TrustStrip } from "@/components/TrustStrip";
 import { WorkTogether } from "@/components/WorkTogether";
 import { siteConfig } from "@/lib/site";
 
+const title = "About Us";
+const description =
+  "Learn about Jeevan Sagar Garden Developers — Bengaluru’s trusted plot developers with 12+ years of experience.";
+
 export const metadata: Metadata = {
-  title: "About Us | JS Garden Developers",
-  description:
-    "Learn about Jeevan Sagar Garden Developers — Bengaluru’s trusted plot developers with 12+ years of experience.",
+  title,
+  description,
+  alternates: { canonical: "/about" },
+  openGraph: { title, description, url: "/about" },
+  twitter: { title, description },
 };
 
 const pillars = [
@@ -65,15 +72,15 @@ export default function AboutPage() {
                 <span className="block h-px w-10 bg-forest" aria-hidden />
               </Link>
             </div>
-            <div
-              className="aspect-[4/3] bg-cover bg-center"
-              style={{
-                backgroundImage:
-                  "url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1400&q=80')",
-              }}
-              role="img"
-              aria-label="Bright residential interior"
-            />
+            <div className="relative aspect-[4/3] overflow-hidden">
+              <Image
+                src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1400&q=80"
+                alt="Bright residential interior"
+                fill
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="object-cover"
+              />
+            </div>
           </div>
         </section>
 

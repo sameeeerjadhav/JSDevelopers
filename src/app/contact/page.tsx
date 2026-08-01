@@ -5,10 +5,16 @@ import { Header } from "@/components/Header";
 import { PageHero } from "@/components/PageHero";
 import { siteConfig } from "@/lib/site";
 
+const title = "Contact Us";
+const description =
+  "Visit our K.R. Puram office, call, WhatsApp, or enquire online for plot site visits across Bengaluru.";
+
 export const metadata: Metadata = {
-  title: "Contact Us | JS Garden Developers",
-  description:
-    "Visit our K.R. Puram office, call, WhatsApp, or enquire online for plot site visits across Bengaluru.",
+  title,
+  description,
+  alternates: { canonical: "/contact" },
+  openGraph: { title, description, url: "/contact" },
+  twitter: { title, description },
 };
 
 export default function ContactPage() {

@@ -1,142 +1,183 @@
 "use client";
 
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { captureAttribution } from "@/lib/attribution";
+import { getConsent, saveConsent, type ConsentCategories } from "@/lib/consent";
+import { loadAnalytics, loadMarketing } from "@/lib/tracking";
 
-type Consent = {
-  necessary: true;
-  analytics: boolean;
-  marketing: boolean;
-};
-
-const STORAGE_KEY = "js-garden-cookie-consent";
-
-function loadAnalytics() {
-  if (typeof window === "undefined") return;
-  // Placeholder: replace with GA4 / Meta Pixel IDs when company provides them.
-  window.dispatchEvent(new CustomEvent("js-consent-analytics"));
-}
-
-function loadMarketing() {
-  if (typeof window === "undefined") return;
-  window.dispatchEvent(new CustomEvent("js-consent-marketing"));
+function ToggleRow({
+  title,
+  description,
+  checked,
+  disabled,
+  onChange,
+}: {
+  title: string;
+  description: string;
+  checked: boolean;
+  disabled?: boolean;
+  onChange?: (checked: boolean) => void;
+}) {
+  return (
+    <div className="flex items-start justify-between gap-4 py-3.5 first:pt-0 last:pb-0">
+      <div>
+        <p className="text-sm font-semibold text-white">{title}</p>
+        <p className="mt-1 text-xs leading-relaxed text-white/60">{description}</p>
+      </div>
+      <button
+        type="button"
+        role="switch"
+        aria-checked={checked}
+        aria-label={title}
+        disabled={disabled}
+        onClick={() => onChange?.(!checked)}
+        className={`relative h-6 w-11 shrink-0 rounded-full transition-colors ${
+          checked ? "bg-leaf" : "bg-white/15"
+        } ${disabled ? "cursor-not-allowed opacity-60" : "cursor-pointer"}`}
+      >
+        <span
+          className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all ${
+            checked ? "left-[22px]" : "left-0.5"
+          }`}
+        />
+      </button>
+    </div>
+  );
 }
 
 export function CookieConsent() {
   const [visible, setVisible] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [analytics, setAnalytics] = useState(true);
-  const [marketing, setMarketing] = useState(false);
+  const [marketing, setMarketing] = useState(true);
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) {
-        setVisible(true);
-        return;
-      }
-      const saved = JSON.parse(raw) as Consent;
+    captureAttribution();
+
+    const saved = getConsent();
+    if (!saved) {
+      setVisible(true);
+    } else {
       if (saved.analytics) loadAnalytics();
       if (saved.marketing) loadMarketing();
-    } catch {
-      setVisible(true);
     }
+
+    function reopen() {
+      setVisible(true);
+      setExpanded(true);
+    }
+    window.addEventListener("open-cookie-preferences", reopen);
+    return () => window.removeEventListener("open-cookie-preferences", reopen);
   }, []);
 
-  function save(consent: Consent) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(consent));
+  function apply(consent: ConsentCategories) {
+    saveConsent(consent);
     if (consent.analytics) loadAnalytics();
     if (consent.marketing) loadMarketing();
     setVisible(false);
   }
 
-  if (!visible) return null;
-
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 p-4 md:p-6">
-      <div className="mx-auto max-w-3xl rounded-3xl border border-white/10 bg-navy-deep/95 p-5 text-white shadow-2xl backdrop-blur md:p-6">
-        <p className="font-display text-xl font-semibold">We value your privacy</p>
-        <p className="mt-2 text-sm leading-relaxed text-white/75">
-          We use cookies to run the site, understand which projects visitors
-          explore, and — only if you allow — improve our marketing. Necessary
-          cookies stay on; everything else is your choice.
-        </p>
+    <AnimatePresence>
+      {visible && (
+        <motion.div
+          initial={{ y: 40, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 40, opacity: 0 }}
+          transition={{ duration: 0.35, ease: "easeOut" }}
+          className="fixed inset-x-0 bottom-0 z-50 p-4 md:p-6"
+        >
+          <div className="mx-auto max-w-3xl overflow-hidden rounded-3xl border border-white/10 bg-navy-deep shadow-[0_30px_60px_-30px_rgba(0,0,0,0.7)]">
+            <div className="p-6 md:p-7">
+              <div className="flex items-start gap-4">
+                <div className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-leaf/15 text-leaf">
+                  <svg viewBox="0 0 24 24" className="h-6 w-6 fill-none stroke-current stroke-[1.6]">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M21 12.5A8.5 8.5 0 1 1 11.5 3a1 1 0 0 0 1.1 1.4A2.5 2.5 0 0 0 15.6 7a1 1 0 0 0 1.4 1.1A2.5 2.5 0 0 0 20 10.5a1 1 0 0 0 1 2Z"
+                    />
+                    <circle cx="9" cy="10" r="1" fill="currentColor" stroke="none" />
+                    <circle cx="13" cy="15" r="1" fill="currentColor" stroke="none" />
+                    <circle cx="9.5" cy="16.5" r="1" fill="currentColor" stroke="none" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-display text-lg font-semibold text-white md:text-xl">
+                    We value your privacy
+                  </p>
+                  <p className="mt-1.5 text-sm leading-relaxed text-white/70">
+                    We use cookies to run this site securely, understand how visitors
+                    explore our projects, and — only with your permission — personalise
+                    our marketing and follow up with people who show interest. You can
+                    change your choice anytime from the footer.
+                  </p>
+                </div>
+              </div>
 
-        {expanded && (
-          <div className="mt-4 space-y-3 rounded-2xl bg-white/5 p-4 text-sm">
-            <label className="flex items-start justify-between gap-4">
-              <span>
-                <span className="font-semibold">Necessary</span>
-                <span className="mt-1 block text-white/65">
-                  Required for basic site function and security.
-                </span>
-              </span>
-              <input type="checkbox" checked disabled className="mt-1 accent-leaf" />
-            </label>
-            <label className="flex items-start justify-between gap-4">
-              <span>
-                <span className="font-semibold">Analytics</span>
-                <span className="mt-1 block text-white/65">
-                  Helps us see popular projects and improve the site.
-                </span>
-              </span>
-              <input
-                type="checkbox"
-                checked={analytics}
-                onChange={(e) => setAnalytics(e.target.checked)}
-                className="mt-1 accent-leaf"
-              />
-            </label>
-            <label className="flex items-start justify-between gap-4">
-              <span>
-                <span className="font-semibold">Marketing</span>
-                <span className="mt-1 block text-white/65">
-                  Optional ads/remarketing for people who showed interest.
-                </span>
-              </span>
-              <input
-                type="checkbox"
-                checked={marketing}
-                onChange={(e) => setMarketing(e.target.checked)}
-                className="mt-1 accent-leaf"
-              />
-            </label>
+              <AnimatePresence initial={false}>
+                {expanded && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.25 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="mt-5 divide-y divide-white/10 rounded-2xl bg-white/5 px-4">
+                      <ToggleRow
+                        title="Necessary"
+                        description="Required for core site features and security. Always on."
+                        checked
+                        disabled
+                      />
+                      <ToggleRow
+                        title="Analytics"
+                        description="Helps us see which projects and pages get attention, so we can improve the site."
+                        checked={analytics}
+                        onChange={setAnalytics}
+                      />
+                      <ToggleRow
+                        title="Marketing"
+                        description="Lets us show relevant ads and follow up on-site visit enquiries you've shown interest in."
+                        checked={marketing}
+                        onChange={setMarketing}
+                      />
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              <div className="mt-6 flex flex-wrap items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => apply({ analytics: true, marketing: true })}
+                  className="rounded-full bg-leaf px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-forest"
+                >
+                  Accept all
+                </button>
+                <button
+                  type="button"
+                  onClick={() => apply({ analytics: false, marketing: false })}
+                  className="rounded-full border border-white/20 px-6 py-2.5 text-sm font-semibold text-white/90 transition hover:bg-white/10"
+                >
+                  Reject non-essential
+                </button>
+                <button
+                  type="button"
+                  onClick={() =>
+                    expanded ? apply({ analytics, marketing }) : setExpanded(true)
+                  }
+                  className="rounded-full px-4 py-2.5 text-sm font-semibold text-white/70 underline decoration-white/30 underline-offset-4 transition hover:text-white"
+                >
+                  {expanded ? "Save preferences" : "Manage preferences"}
+                </button>
+              </div>
+            </div>
           </div>
-        )}
-
-        <div className="mt-5 flex flex-wrap gap-2">
-          <button
-            type="button"
-            onClick={() =>
-              save({ necessary: true, analytics: true, marketing: true })
-            }
-            className="rounded-full bg-leaf px-5 py-2.5 text-sm font-semibold text-white hover:bg-forest"
-          >
-            Accept all
-          </button>
-          <button
-            type="button"
-            onClick={() =>
-              save({ necessary: true, analytics: false, marketing: false })
-            }
-            className="rounded-full border border-white/25 px-5 py-2.5 text-sm font-semibold text-white hover:bg-white/10"
-          >
-            Necessary only
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              if (expanded) {
-                save({ necessary: true, analytics, marketing });
-              } else {
-                setExpanded(true);
-              }
-            }}
-            className="rounded-full bg-white/10 px-5 py-2.5 text-sm font-semibold text-white hover:bg-white/15"
-          >
-            {expanded ? "Save choices" : "Customize"}
-          </button>
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

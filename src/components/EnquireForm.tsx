@@ -1,7 +1,10 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
+import { getAttribution } from "@/lib/attribution";
+import { hasConsent } from "@/lib/consent";
 import { projects, siteConfig } from "@/lib/site";
+import { trackEvent } from "@/lib/tracking";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -20,6 +23,7 @@ export function EnquireForm() {
 
     const form = event.currentTarget;
     const data = new FormData(form);
+    const trackingAllowed = hasConsent("analytics") || hasConsent("marketing");
 
     try {
       const res = await fetch("/api/leads", {
@@ -32,11 +36,13 @@ export function EnquireForm() {
           project: data.get("project"),
           message: data.get("message"),
           consent: data.get("consent") === "on",
+          attribution: trackingAllowed ? getAttribution() : null,
         }),
       });
 
       if (!res.ok) throw new Error("Failed");
       setStatus("success");
+      trackEvent("generate_lead", { project: String(data.get("project") ?? "") });
       form.reset();
       setProject(projects[0]?.name ?? "");
     } catch {

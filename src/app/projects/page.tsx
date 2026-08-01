@@ -5,10 +5,16 @@ import { PageHero } from "@/components/PageHero";
 import { ProjectsShowcase } from "@/components/ProjectsShowcase";
 import { WorkTogether } from "@/components/WorkTogether";
 
+const title = "Our Projects";
+const description =
+  "Explore villa plots, ongoing layouts and growth corridors from JS Garden Developers across Whitefield, Malur and Hoskote.";
+
 export const metadata: Metadata = {
-  title: "Our Projects | JS Garden Developers",
-  description:
-    "Explore villa plots, ongoing layouts and growth corridors from JS Garden Developers across Whitefield, Malur and Hoskote.",
+  title,
+  description,
+  alternates: { canonical: "/projects" },
+  openGraph: { title, description, url: "/projects" },
+  twitter: { title, description },
 };
 
 export default function ProjectsPage() {

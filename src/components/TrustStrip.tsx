@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { siteConfig } from "@/lib/site";
 
@@ -33,13 +34,14 @@ function StatValue({ value }: { value: string }) {
 export function TrustStrip() {
   return (
     <section id="trust" className="relative overflow-hidden py-16 md:py-20">
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage:
-            "linear-gradient(90deg, rgba(6,20,40,0.92), rgba(10,31,61,0.85)), url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2000&q=80')",
-        }}
+      <Image
+        src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2000&q=80"
+        alt=""
+        fill
+        sizes="100vw"
+        className="object-cover"
       />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(6,20,40,0.92),rgba(10,31,61,0.85))]" />
       <div className="relative mx-auto grid max-w-6xl grid-cols-2 gap-8 px-5 md:grid-cols-4 md:px-8">
         {siteConfig.stats.map((stat, i) => (
           <motion.div

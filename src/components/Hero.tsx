@@ -4,17 +4,20 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site";
+import { trackEvent } from "@/lib/tracking";
 
 export function Hero() {
   return (
     <section className="relative min-h-[100svh] overflow-hidden">
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage:
-            "linear-gradient(105deg, rgba(6,20,40,0.88) 0%, rgba(6,20,40,0.55) 48%, rgba(6,20,40,0.35) 100%), url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2400&q=80')",
-        }}
+      <Image
+        src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2400&q=80"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover"
       />
+      <div className="absolute inset-0 bg-[linear-gradient(105deg,rgba(6,20,40,0.88)_0%,rgba(6,20,40,0.55)_48%,rgba(6,20,40,0.35)_100%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(47,158,99,0.22),transparent_45%)]" />
 
       <div className="relative mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-end px-5 pb-16 pt-32 md:justify-center md:px-8 md:pb-24 md:pt-28">
@@ -70,6 +73,7 @@ export function Hero() {
             href={`https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent("Hi, I'm interested in your residential plots.")}`}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackEvent("whatsapp_click", { location: "hero" })}
             className="border border-white/35 bg-white/5 px-6 py-3.5 text-sm font-semibold uppercase tracking-wide text-white backdrop-blur transition hover:bg-white/15"
           >
             WhatsApp Us
