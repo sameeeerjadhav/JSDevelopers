@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { projectCategories, projects, siteConfig } from "@/lib/site";
 import { trackEvent } from "@/lib/tracking";
 
@@ -15,21 +15,36 @@ const AUTO_ADVANCE_MS = 4500;
 
 export function ProjectsShowcase({ showListings = true }: ProjectsShowcaseProps) {
   const [activeId, setActiveId] = useState(projectCategories[0]?.id ?? "");
+  const [paused, setPaused] = useState(false);
   const active = useMemo(
     () => projectCategories.find((c) => c.id === activeId) ?? projectCategories[0],
     [activeId],
   );
 
+  // Tracks how much of the current cycle is left so pausing/resuming keeps
+  // the timer and the visual progress bar (see the CSS animation below) in sync.
+  const remainingMsRef = useRef(AUTO_ADVANCE_MS);
+  const cycleStartedAtRef = useRef(Date.now());
+
   useEffect(() => {
+    remainingMsRef.current = AUTO_ADVANCE_MS;
+  }, [activeId]);
+
+  useEffect(() => {
+    if (paused) {
+      remainingMsRef.current -= Date.now() - cycleStartedAtRef.current;
+      return;
+    }
+    cycleStartedAtRef.current = Date.now();
     const timer = setTimeout(() => {
       setActiveId((current) => {
         const index = projectCategories.findIndex((c) => c.id === current);
         const next = projectCategories[(index + 1) % projectCategories.length];
         return next?.id ?? current;
       });
-    }, AUTO_ADVANCE_MS);
+    }, remainingMsRef.current);
     return () => clearTimeout(timer);
-  }, [activeId]);
+  }, [activeId, paused]);
 
   const listed = showListings
     ? projects.filter((p) =>
@@ -44,33 +59,52 @@ export function ProjectsShowcase({ showListings = true }: ProjectsShowcaseProps)
   return (
     <section className="bg-white">
       <div className="border-b border-navy/10">
-        <div className="mx-auto flex max-w-6xl gap-8 overflow-x-auto px-5 md:px-8">
-          {projectCategories.map((category) => {
-            const isActive = category.id === active.id;
-            return (
-              <button
-                key={category.id}
-                type="button"
-                onClick={() => setActiveId(category.id)}
-                className={`relative shrink-0 py-5 text-sm font-medium tracking-wide transition md:text-base ${
-                  isActive ? "text-forest" : "text-navy/55 hover:text-navy"
-                }`}
-              >
-                {category.label}
-                <span className="absolute inset-x-0 bottom-0 h-[3px] bg-navy/10" />
-                {isActive && (
-                  <motion.span
-                    key={category.id}
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    transition={{ duration: AUTO_ADVANCE_MS / 1000, ease: "linear" }}
-                    style={{ transformOrigin: "left" }}
-                    className="absolute inset-x-0 bottom-0 h-[3px] bg-forest"
-                  />
-                )}
-              </button>
-            );
-          })}
+        <div className="mx-auto flex max-w-6xl items-center gap-4 px-5 md:px-8">
+          <div className="flex flex-1 gap-8 overflow-x-auto">
+            {projectCategories.map((category) => {
+              const isActive = category.id === active.id;
+              return (
+                <button
+                  key={category.id}
+                  type="button"
+                  onClick={() => setActiveId(category.id)}
+                  className={`relative shrink-0 py-5 text-sm font-medium tracking-wide transition md:text-base ${
+                    isActive ? "text-forest" : "text-navy/55 hover:text-navy"
+                  }`}
+                >
+                  {category.label}
+                  <span className="absolute inset-x-0 bottom-0 h-[3px] bg-navy/10" />
+                  {isActive && (
+                    <span
+                      key={category.id}
+                      style={{
+                        animation: `project-tab-fill ${AUTO_ADVANCE_MS}ms linear forwards`,
+                        animationPlayState: paused ? "paused" : "running",
+                      }}
+                      className="absolute inset-x-0 bottom-0 h-[3px] origin-left bg-forest"
+                    />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+          <button
+            type="button"
+            onClick={() => setPaused((p) => !p)}
+            aria-label={paused ? "Resume automatic rotation" : "Pause automatic rotation"}
+            aria-pressed={paused}
+            className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-navy/15 text-navy/50 transition hover:border-forest/40 hover:text-forest"
+          >
+            {paused ? (
+              <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 fill-current">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            ) : (
+              <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 fill-current">
+                <path d="M6 5h4v14H6zM14 5h4v14h-4z" />
+              </svg>
+            )}
+          </button>
         </div>
       </div>
 
