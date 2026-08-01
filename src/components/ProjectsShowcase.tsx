@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { projectCategories, projects, siteConfig } from "@/lib/site";
 import { trackEvent } from "@/lib/tracking";
 
@@ -11,12 +11,25 @@ type ProjectsShowcaseProps = {
   showListings?: boolean;
 };
 
+const AUTO_ADVANCE_MS = 2000;
+
 export function ProjectsShowcase({ showListings = true }: ProjectsShowcaseProps) {
   const [activeId, setActiveId] = useState(projectCategories[0]?.id ?? "");
   const active = useMemo(
     () => projectCategories.find((c) => c.id === activeId) ?? projectCategories[0],
     [activeId],
   );
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setActiveId((current) => {
+        const index = projectCategories.findIndex((c) => c.id === current);
+        const next = projectCategories[(index + 1) % projectCategories.length];
+        return next?.id ?? current;
+      });
+    }, AUTO_ADVANCE_MS);
+    return () => clearTimeout(timer);
+  }, [activeId]);
 
   const listed = showListings
     ? projects.filter((p) =>
@@ -44,9 +57,14 @@ export function ProjectsShowcase({ showListings = true }: ProjectsShowcaseProps)
                 }`}
               >
                 {category.label}
+                <span className="absolute inset-x-0 bottom-0 h-[3px] bg-navy/10" />
                 {isActive && (
                   <motion.span
-                    layoutId="project-tab-underline"
+                    key={category.id}
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{ duration: AUTO_ADVANCE_MS / 1000, ease: "linear" }}
+                    style={{ transformOrigin: "left" }}
                     className="absolute inset-x-0 bottom-0 h-[3px] bg-forest"
                   />
                 )}
