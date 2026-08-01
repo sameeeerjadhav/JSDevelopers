@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site";
 
@@ -17,14 +18,21 @@ export function Hero() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(47,158,99,0.22),transparent_45%)]" />
 
       <div className="relative mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-end px-5 pb-16 pt-32 md:justify-center md:px-8 md:pb-24 md:pt-28">
-        <motion.p
+        <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mb-4 max-w-xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
+          className="mb-6 inline-flex w-fit rounded-md bg-white px-3 py-2 shadow-lg md:px-4 md:py-2.5"
         >
-          {siteConfig.shortName}
-        </motion.p>
+          <Image
+            src="/logo-dark.png"
+            alt="J.S. Garden Developers — ISO 9001 Certified Company"
+            width={340}
+            height={112}
+            className="h-16 w-auto object-contain sm:h-20 md:h-24"
+            priority
+          />
+        </motion.div>
 
         <motion.h1
           initial={{ opacity: 0, y: 18 }}

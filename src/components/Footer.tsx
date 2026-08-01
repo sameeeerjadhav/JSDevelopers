@@ -1,10 +1,15 @@
 import Link from "next/link";
+import { SiteLogo } from "@/components/SiteLogo";
 import { navLinks, projects, siteConfig } from "@/lib/site";
 
 export function Footer() {
   return (
     <footer className="bg-navy-deep text-white">
       <div className="mx-auto max-w-6xl px-5 py-16 md:px-8">
+        <div className="mb-10">
+          <SiteLogo variant="footer" />
+        </div>
+
         <div className="overflow-hidden">
           <div
             className="bg-cover bg-center px-6 py-12 text-center md:px-10"

@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { navLinks, siteConfig } from "@/lib/site";
+import { navLinks } from "@/lib/site";
+import { SiteLogo } from "@/components/SiteLogo";
 
 type HeaderProps = {
   variant?: "overlay" | "solid";
@@ -22,34 +23,12 @@ export function Header({ variant = "solid" }: HeaderProps) {
           : "sticky top-0 z-40 border-b border-navy/8 bg-white/95 backdrop-blur"
       }
     >
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 md:px-8">
-        <Link href="/" className="group flex items-center gap-3">
-          <span
-            className={`relative grid h-11 w-11 place-items-center rounded-full text-sm font-bold text-white ${
-              overlay
-                ? "bg-leaf shadow-[0_0_0_4px_rgba(47,158,99,0.25)]"
-                : "bg-forest"
-            }`}
-          >
-            JS
-          </span>
-          <span className="leading-tight">
-            <span
-              className={`block font-display text-lg font-semibold tracking-tight md:text-xl ${
-                overlay ? "text-white" : "text-navy"
-              }`}
-            >
-              {siteConfig.shortName}
-            </span>
-            <span
-              className={`hidden text-[11px] uppercase tracking-[0.18em] sm:block ${
-                overlay ? "text-white/70" : "text-muted"
-              }`}
-            >
-              {siteConfig.iso}
-            </span>
-          </span>
-        </Link>
+      <div
+        className={`mx-auto flex max-w-6xl items-center gap-4 px-5 py-3 md:px-8 md:py-3.5 ${
+          overlay ? "justify-end" : "justify-between"
+        }`}
+      >
+        {!overlay && <SiteLogo variant="solid" priority />}
 
         <nav className="hidden items-center gap-7 md:flex">
           {navLinks.map((link) => {
@@ -79,7 +58,7 @@ export function Header({ variant = "solid" }: HeaderProps) {
             href="/contact"
             className={`px-5 py-2.5 text-sm font-semibold uppercase tracking-wide transition ${
               overlay
-                ? "rounded-none bg-white text-navy hover:bg-mist"
+                ? "bg-white text-navy hover:bg-mist"
                 : "bg-forest text-white hover:bg-navy"
             }`}
           >
@@ -90,9 +69,9 @@ export function Header({ variant = "solid" }: HeaderProps) {
         <button
           type="button"
           aria-label="Toggle menu"
-          className={`grid h-10 w-10 place-items-center border md:hidden ${
+          className={`grid h-10 w-10 shrink-0 place-items-center border md:hidden ${
             overlay
-              ? "rounded-full border-white/30 text-white"
+              ? "border-white/30 text-white"
               : "border-navy/20 text-navy"
           }`}
           onClick={() => setOpen((v) => !v)}
@@ -105,7 +84,7 @@ export function Header({ variant = "solid" }: HeaderProps) {
         <div
           className={`mx-5 mb-4 border p-5 md:hidden ${
             overlay
-              ? "rounded-2xl border-white/15 bg-navy-deep/95"
+              ? "border-white/15 bg-navy-deep/95"
               : "border-navy/10 bg-white shadow-lg"
           }`}
         >

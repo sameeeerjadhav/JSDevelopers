@@ -27,6 +27,10 @@ export const metadata: Metadata = {
     "plots Malur",
     "RERA plots Bangalore",
   ],
+  icons: {
+    icon: "/logo-dark.png",
+    apple: "/logo-dark.png",
+  },
 };
 
 export default function RootLayout({
