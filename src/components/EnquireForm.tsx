@@ -2,12 +2,16 @@
 
 import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
+import { MandalaBackground } from "@/components/MandalaBackground";
 import { getAttribution } from "@/lib/attribution";
 import { hasConsent } from "@/lib/consent";
 import { projects, siteConfig } from "@/lib/site";
 import { trackEvent } from "@/lib/tracking";
 
 type Status = "idle" | "loading" | "success" | "error";
+
+const fieldClass =
+  "mt-2 w-full border border-navy/15 bg-white px-4 py-3.5 text-sm text-navy outline-none transition focus:border-[#e8c84a]";
 
 export function EnquireForm() {
   const [status, setStatus] = useState<Status>("idle");
@@ -52,31 +56,56 @@ export function EnquireForm() {
   }
 
   return (
-    <section id="enquire" className="relative overflow-hidden bg-mist py-20 md:py-28">
-      <div className="pointer-events-none absolute -right-24 top-10 h-72 w-72 rounded-full bg-leaf/20 blur-3xl" />
-      <div className="mx-auto grid max-w-6xl gap-12 px-5 md:px-8 lg:grid-cols-[1fr_1.05fr]">
+    <section id="enquire" className="relative overflow-hidden bg-white py-16 md:py-24">
+      <MandalaBackground tone="white" />
+      <div className="relative z-10 mx-auto grid max-w-7xl gap-12 px-5 md:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-forest">
-            Enquire
-          </p>
-          <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-navy md:text-5xl">
+          <div className="flex items-center gap-4">
+            <span className="block h-px w-10 bg-[#e8c84a] sm:w-14" aria-hidden />
+            <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#b8922e] sm:text-sm">
+              Enquire
+            </p>
+          </div>
+          <h2 className="mt-5 text-3xl font-bold tracking-tight text-navy sm:text-4xl md:text-5xl">
             Book a site visit or request a callback
           </h2>
-          <p className="mt-4 max-w-md text-muted md:text-lg">
+          <p className="mt-4 max-w-md text-sm leading-relaxed text-muted sm:text-base md:text-lg">
             Share your details and preferred project. Our team responds on call
             or WhatsApp — usually the same day.
           </p>
-          <div className="mt-8 space-y-3 text-sm text-navy">
-            <p>
-              <span className="font-semibold">Phone:</span>{" "}
-              <a href={`tel:+91${siteConfig.phone}`} className="text-forest">
+
+          <div className="mt-8 space-y-4 border-l-2 border-[#e8c84a] pl-5">
+            <p className="text-sm text-navy">
+              <span className="block text-[10px] font-bold uppercase tracking-[0.16em] text-[#b8922e]">
+                Phone
+              </span>
+              <a
+                href={`tel:+91${siteConfig.phone}`}
+                className="mt-1 inline-block font-semibold hover:text-forest"
+              >
                 {siteConfig.phoneDisplay}
               </a>
             </p>
-            <p>
-              <span className="font-semibold">Email:</span>{" "}
-              <a href={`mailto:${siteConfig.email}`} className="text-forest">
+            <p className="text-sm text-navy">
+              <span className="block text-[10px] font-bold uppercase tracking-[0.16em] text-[#b8922e]">
+                Email
+              </span>
+              <a
+                href={`mailto:${siteConfig.email}`}
+                className="mt-1 inline-block font-semibold break-all hover:text-forest"
+              >
                 {siteConfig.email}
+              </a>
+            </p>
+            <p className="text-sm text-muted">
+              Prefer WhatsApp?{" "}
+              <a
+                href={`https://wa.me/${siteConfig.whatsapp}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-forest hover:underline"
+              >
+                Message us directly
               </a>
             </p>
           </div>
@@ -84,15 +113,15 @@ export function EnquireForm() {
 
         <form
           onSubmit={onSubmit}
-          className="rounded-3xl bg-white p-6 shadow-[0_30px_60px_-40px_rgba(10,31,61,0.45)] md:p-8"
+          className="border border-[#e8c84a]/40 bg-[#f7f5ef] p-6 sm:p-8 md:p-10"
         >
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-5 sm:grid-cols-2">
             <label className="block text-sm font-medium text-navy">
               Full name
               <input
                 required
                 name="name"
-                className="mt-2 w-full rounded-xl border border-navy/15 bg-sand px-4 py-3 outline-none transition focus:border-leaf"
+                className={fieldClass}
                 placeholder="Your name"
               />
             </label>
@@ -103,7 +132,7 @@ export function EnquireForm() {
                 name="phone"
                 type="tel"
                 pattern="[0-9+\-\s]{10,15}"
-                className="mt-2 w-full rounded-xl border border-navy/15 bg-sand px-4 py-3 outline-none transition focus:border-leaf"
+                className={fieldClass}
                 placeholder="10-digit mobile"
               />
             </label>
@@ -112,7 +141,7 @@ export function EnquireForm() {
               <input
                 name="email"
                 type="email"
-                className="mt-2 w-full rounded-xl border border-navy/15 bg-sand px-4 py-3 outline-none transition focus:border-leaf"
+                className={fieldClass}
                 placeholder="you@email.com"
               />
             </label>
@@ -122,7 +151,7 @@ export function EnquireForm() {
                 name="project"
                 value={project}
                 onChange={(e) => setProject(e.target.value)}
-                className="mt-2 w-full rounded-xl border border-navy/15 bg-sand px-4 py-3 outline-none transition focus:border-leaf"
+                className={fieldClass}
               >
                 {projects.map((p) => (
                   <option key={p.id} value={p.name}>
@@ -136,19 +165,19 @@ export function EnquireForm() {
               Message
               <textarea
                 name="message"
-                rows={3}
-                className="mt-2 w-full resize-none rounded-xl border border-navy/15 bg-sand px-4 py-3 outline-none transition focus:border-leaf"
+                rows={4}
+                className={`${fieldClass} resize-none`}
                 placeholder="Plot size, budget, preferred visit date…"
               />
             </label>
           </div>
 
-          <label className="mt-4 flex items-start gap-3 text-sm text-muted">
+          <label className="mt-5 flex items-start gap-3 text-sm text-muted">
             <input
               required
               name="consent"
               type="checkbox"
-              className="mt-1 h-4 w-4 accent-leaf"
+              className="mt-1 h-4 w-4 accent-[#b8922e]"
             />
             <span>
               I agree to be contacted by JS Garden Developers about my enquiry
@@ -163,7 +192,7 @@ export function EnquireForm() {
           <button
             type="submit"
             disabled={status === "loading"}
-            className="mt-6 w-full rounded-full bg-navy py-3.5 text-sm font-semibold text-white transition hover:bg-navy-deep disabled:opacity-60"
+            className="mt-7 w-full bg-navy py-3.5 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-navy-deep disabled:opacity-60 sm:text-sm"
           >
             {status === "loading" ? "Sending…" : "Submit enquiry"}
           </button>

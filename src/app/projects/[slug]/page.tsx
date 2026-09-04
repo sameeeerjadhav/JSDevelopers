@@ -67,8 +67,8 @@ export default async function ProjectPage({ params }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <Header />
-      <main>
+      <Header variant="overlay" />
+      <main className="overflow-x-hidden">
         <ProjectDetail project={project} />
       </main>
       <Footer />

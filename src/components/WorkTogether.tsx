@@ -1,38 +1,55 @@
+import Image from "next/image";
 import Link from "next/link";
+
+const BG_IMAGE =
+  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=80";
 
 export function WorkTogether() {
   return (
-    <section className="relative overflow-hidden bg-white">
-      <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-16 md:px-8 md:py-24 lg:grid-cols-[1.1fr_0.9fr]">
-        <div>
-          <h2 className="text-3xl font-bold tracking-tight text-navy md:text-5xl">
-            Ready to work together?
-          </h2>
-          <p className="mt-4 max-w-lg text-muted md:text-lg">
-            Whether you want a site visit, plot options near Whitefield–Malur, or
-            paperwork clarity — our Bengaluru team is ready to help.
+    <section className="relative overflow-hidden">
+      <Image
+        src={BG_IMAGE}
+        alt=""
+        fill
+        sizes="100vw"
+        className="object-cover"
+        priority={false}
+      />
+      <div
+        className="absolute inset-0 bg-gradient-to-r from-navy-deep/90 via-navy/80 to-navy/55"
+        aria-hidden
+      />
+
+      <div className="relative z-10 mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
+        <div className="flex items-center justify-center gap-4">
+          <span className="block h-px w-10 bg-[#e8c84a]/70 sm:w-16" aria-hidden />
+          <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#e8c84a] sm:text-sm">
+            Contact us
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link
-              href="/contact"
-              className="bg-forest px-6 py-3.5 text-sm font-semibold uppercase tracking-wide text-white hover:bg-navy"
-            >
-              Book a site visit
-            </Link>
-            <Link
-              href="/projects"
-              className="border border-forest px-6 py-3.5 text-sm font-semibold uppercase tracking-wide text-forest hover:bg-mist"
-            >
-              Browse projects
-            </Link>
-          </div>
+          <span className="block h-px w-10 bg-[#e8c84a]/70 sm:w-16" aria-hidden />
         </div>
 
-        <div className="relative mx-auto h-56 w-full max-w-md md:h-72" aria-hidden>
-          <div className="absolute right-0 top-0 h-40 w-40 rotate-12 bg-[#f6d86b] md:h-52 md:w-52" />
-          <div className="absolute right-16 top-10 h-44 w-44 -rotate-6 bg-[#ffe28a]/90 md:right-20 md:h-56 md:w-56" />
-          <div className="absolute bottom-0 right-8 h-36 w-36 rotate-[28deg] bg-[#efc94c] md:h-48 md:w-48" />
-          <div className="absolute bottom-8 left-4 h-28 w-28 rotate-45 bg-[#fff3bf]" />
+        <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
+          Ready to work together?
+        </h2>
+        <p className="mx-auto mt-4 max-w-xl text-center text-sm text-white/80 sm:text-base md:text-lg">
+          Whether you want a site visit, plot options near Whitefield–Malur, or
+          paperwork clarity — our Bengaluru team is ready to help.
+        </p>
+
+        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:mt-10 sm:flex-row sm:flex-wrap">
+          <Link
+            href="/contact"
+            className="w-full bg-[#e8c84a] px-8 py-3.5 text-center text-sm font-semibold uppercase tracking-wide text-navy transition hover:bg-[#f0d45a] sm:w-auto"
+          >
+            Book a site visit
+          </Link>
+          <Link
+            href="/projects"
+            className="w-full border border-white/70 px-8 py-3.5 text-center text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-white/10 sm:w-auto"
+          >
+            Browse projects
+          </Link>
         </div>
       </div>
     </section>
