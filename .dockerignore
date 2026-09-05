@@ -1,0 +1,14 @@
+node_modules
+.next
+.git
+.gitignore
+*.md
+.env
+.env*.local
+.DS_Store
+npm-debug.log*
+.vscode
+.cursor
+.next/cache
+karnataka glow dots.mp4
+mandala bgremoved.png

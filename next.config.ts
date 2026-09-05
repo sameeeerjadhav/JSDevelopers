@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Smaller production image for Dokploy / Docker
+  output: "standalone",
   images: {
     remotePatterns: [
       {
