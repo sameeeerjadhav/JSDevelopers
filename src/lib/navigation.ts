@@ -77,73 +77,29 @@ export const mainNavigation: NavItem[] = [
           ],
         },
         {
-          id: "villa-plots",
-          label: "Villa Plots",
-          description:
-            "Premium residential plots with clear dimensions, approach roads, and locations chosen for long-term growth.",
-          learnMoreHref: "/projects/category/villa-plots",
-          columns: [
-            [
-              {
-                label: "Lakeview Garden — Mittemari",
-                href: "/projects/js-lakeview-garden",
-              },
-              {
-                label: "Dhanapriya — Madanahatti",
-                href: "/projects/dhanapriya-paradise",
-              },
-              {
-                label: "Kanakasree — Lingapura",
-                href: "/projects/kanakasree-enclave",
-              },
-              {
-                label: "Royal Meadows — Doddakadathur",
-                href: "/projects/royal-meadows",
-              },
-            ],
-            [
-              { label: "Plot sizes & layouts", href: "/projects#listings" },
-              { label: "DTCP / MPA approvals", href: "/projects#listings" },
-              { label: "All villa plots", href: "/projects/category/villa-plots" },
-            ],
-            [
-              { label: "Site visit booking", href: "/contact" },
-              { label: "Price on request", href: "/contact" },
-              { label: "WhatsApp enquiry", href: "/contact" },
-            ],
-          ],
-        },
-        {
           id: "ongoing",
           label: "Ongoing",
           description:
-            "Active layouts where roads, lighting and amenities are progressing — visit on the ground and track delivery.",
-          learnMoreHref: "/projects/category/ongoing",
+            "Active layout where roads, lighting and amenities are progressing — visit on the ground and track delivery.",
+          learnMoreHref: "/projects/js-lakeview-garden",
           columns: [
             [
               {
                 label: "Jeevan Sagar Lakeview Garden",
                 href: "/projects/js-lakeview-garden",
               },
-              {
-                label: "Dhanapriya Paradise",
-                href: "/projects/dhanapriya-paradise",
-              },
-              {
-                label: "Kanakasree Enclave",
-                href: "/projects/kanakasree-enclave",
-              },
-              { label: "Royal Meadows", href: "/projects/royal-meadows" },
+              { label: "Site updates", href: "/projects/js-lakeview-garden" },
+              { label: "Request price", href: "/contact" },
             ],
             [
-              { label: "All ongoing", href: "/projects/category/ongoing" },
-              { label: "All listings", href: "/projects#listings" },
-              { label: "Site updates", href: "/projects/js-lakeview-garden" },
+              { label: "Layout master plan", href: "/projects/js-lakeview-garden" },
+              { label: "Amenities", href: "/projects/js-lakeview-garden" },
+              { label: "Location map", href: "/projects/js-lakeview-garden#map" },
             ],
             [
               { label: "Schedule a visit", href: "/contact" },
-              { label: "Call our office", href: "/contact" },
-              { label: "About the developer", href: "/about" },
+              { label: "WhatsApp enquiry", href: "/contact" },
+              { label: "All projects", href: "/projects#listings" },
             ],
           ],
         },
