@@ -96,16 +96,20 @@ export const mainNavigation: NavItem[] = [
                 label: "Kanakasree — Lingapura",
                 href: "/projects/kanakasree-enclave",
               },
+              {
+                label: "Royal Meadows — Doddakadathur",
+                href: "/projects/royal-meadows",
+              },
             ],
             [
               { label: "Plot sizes & layouts", href: "/projects#listings" },
               { label: "DTCP / MPA approvals", href: "/projects#listings" },
-              { label: "Amenities overview", href: "/projects/js-lakeview-garden" },
+              { label: "All villa plots", href: "/projects/category/villa-plots" },
             ],
             [
               { label: "Site visit booking", href: "/contact" },
               { label: "Price on request", href: "/contact" },
-              { label: "Investment tips", href: "/insights/investment-tips" },
+              { label: "WhatsApp enquiry", href: "/contact" },
             ],
           ],
         },
@@ -118,16 +122,23 @@ export const mainNavigation: NavItem[] = [
           columns: [
             [
               {
-                label: "Lakeview Garden updates",
+                label: "Jeevan Sagar Lakeview Garden",
                 href: "/projects/js-lakeview-garden",
               },
-              { label: "All ongoing", href: "/projects/category/ongoing" },
-              { label: "On-site progress photos", href: "/projects/js-lakeview-garden" },
+              {
+                label: "Dhanapriya Paradise",
+                href: "/projects/dhanapriya-paradise",
+              },
+              {
+                label: "Kanakasree Enclave",
+                href: "/projects/kanakasree-enclave",
+              },
+              { label: "Royal Meadows", href: "/projects/royal-meadows" },
             ],
             [
-              { label: "Payment plans", href: "/contact" },
-              { label: "Bankers & finance", href: "/contact" },
-              { label: "Early enquiries", href: "/contact" },
+              { label: "All ongoing", href: "/projects/category/ongoing" },
+              { label: "All listings", href: "/projects#listings" },
+              { label: "Site updates", href: "/projects/js-lakeview-garden" },
             ],
             [
               { label: "Schedule a visit", href: "/contact" },
@@ -257,7 +268,7 @@ export const mainNavigation: NavItem[] = [
           id: "malur",
           label: "Malur",
           description:
-            "Eastern growth corridor with Whitefield links — Dhanapriya Paradise and Kanakasree Enclave nearby.",
+            "Eastern growth corridor with Whitefield links — Dhanapriya Paradise, Kanakasree Enclave and Royal Meadows nearby.",
           learnMoreHref: "/locations/malur",
           columns: [
             [
@@ -269,12 +280,12 @@ export const mainNavigation: NavItem[] = [
                 label: "Kanakasree Enclave",
                 href: "/projects/kanakasree-enclave",
               },
-              { label: "Malur area guide", href: "/locations/malur" },
+              { label: "Royal Meadows", href: "/projects/royal-meadows" },
             ],
             [
+              { label: "Malur area guide", href: "/locations/malur" },
               { label: "Whitefield corridor", href: "/locations/whitefield" },
               { label: "Hoskote belt", href: "/locations/hoskote" },
-              { label: "All growth corridors", href: "/projects/category/growth-corridors" },
             ],
             [
               { label: "Site visits", href: "/contact" },

@@ -32,43 +32,6 @@ function ChevronDown({ open, className = "" }: { open?: boolean; className?: str
   );
 }
 
-function SearchIcon({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      className={`h-5 w-5 ${className}`}
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden
-    >
-      <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.75" />
-      <path
-        d="M20 20L16.5 16.5"
-        stroke="currentColor"
-        strokeWidth="1.75"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function GlobeIcon({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      className={`h-4 w-4 ${className}`}
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden
-    >
-      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.5" />
-      <path
-        d="M3 12H21M12 3C14.5 6.5 14.5 17.5 12 21M12 3C9.5 6.5 9.5 17.5 12 21"
-        stroke="currentColor"
-        strokeWidth="1.5"
-      />
-    </svg>
-  );
-}
-
 /** Primary route per mega-menu — avoids highlighting every menu that links to the same page. */
 const MEGA_MENU_PRIMARY_PATH: Partial<Record<string, string>> = {
   projects: "/projects",
@@ -195,7 +158,6 @@ export function Header({ variant = "solid" }: HeaderProps) {
 
   const navText = solid ? "text-navy/75 hover:text-navy" : "text-white/85 hover:text-white";
   const navActive = solid ? "text-forest" : "text-white";
-  const utilityText = solid ? "text-navy/70" : "text-white/80";
 
   return (
     <header
@@ -264,23 +226,15 @@ export function Header({ variant = "solid" }: HeaderProps) {
           })}
         </nav>
 
-        <div className="hidden items-center gap-5 lg:flex">
-          <button
-            type="button"
-            className={`flex items-center gap-2 text-xs font-semibold tracking-wide transition ${utilityText} hover:text-forest`}
-            aria-label="Language: India English"
+        <div className="hidden items-center gap-3 lg:flex">
+          <Link
+            href="/contact"
+            className={`inline-flex items-center bg-forest px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-navy ${
+              solid ? "" : "shadow-sm"
+            }`}
           >
-            <GlobeIcon />
-            <span>IN (EN)</span>
-            <ChevronDown className="opacity-70" />
-          </button>
-          <button
-            type="button"
-            className={`transition ${utilityText} hover:text-forest`}
-            aria-label="Search"
-          >
-            <SearchIcon />
-          </button>
+            Enquire
+          </Link>
         </div>
 
         <button

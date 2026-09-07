@@ -16,7 +16,7 @@ const sizes = {
     className: "h-9 w-auto sm:h-11 md:h-12 drop-shadow-sm",
   },
   solid: {
-    src: "/logo-dark.png",
+    src: "/js-just-logo.png",
     width: 200,
     height: 66,
     className: "h-8 w-auto max-w-[11.5rem] sm:h-10 sm:max-w-none md:h-12",
