@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { PageHero } from "@/components/PageHero";
-import { SectionDetail } from "@/components/SectionDetail";
+import { ServicesDetail } from "@/components/ServicesDetail";
+import { MandalaBackground } from "@/components/MandalaBackground";
 import { getServicePage, servicePages } from "@/lib/section-pages";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -21,7 +22,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: page.title,
     description: page.description,
     alternates: { canonical: `/services/${slug}` },
-    openGraph: { title: page.title, description: page.description, url: `/services/${slug}` },
+    openGraph: {
+      title: page.title,
+      description: page.description,
+      url: `/services/${slug}`,
+    },
   };
 }
 
@@ -33,13 +38,17 @@ export default async function ServiceDetailPage({ params }: Props) {
   return (
     <>
       <Header />
-      <main className="overflow-x-hidden">
-        <PageHero
-          eyebrow={page.eyebrow}
-          title={page.title}
-          description={page.description}
-        />
-        <SectionDetail page={page} hubHref="/services" hubLabel="All services" />
+      <main className="overflow-x-hidden bg-white">
+        <div className="relative">
+          <MandalaBackground tone="white" layout="band" />
+          <PageHero
+            eyebrow={page.eyebrow}
+            title={page.title}
+            description={page.description}
+            withMandala={false}
+          />
+          <ServicesDetail page={page} />
+        </div>
       </main>
       <Footer />
     </>

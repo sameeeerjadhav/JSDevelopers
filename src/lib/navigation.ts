@@ -8,7 +8,7 @@ export type MegaMenuPanel = {
   label: string;
   description: string;
   learnMoreHref: string;
-  /** Three columns of links, PCL-style */
+  /** Three columns of links */
   columns: MegaMenuLink[][];
 };
 
@@ -31,7 +31,7 @@ export type NavItem =
       megaMenu: MegaMenuConfig;
     };
 
-/** Desktop mega-menu navigation — placeholder copy until final content is ready. */
+/** Desktop mega-menu navigation for JS Garden Developers. */
 export const mainNavigation: NavItem[] = [
   {
     id: "projects",
@@ -40,27 +40,72 @@ export const mainNavigation: NavItem[] = [
       sidebarLabel: "Projects",
       panels: [
         {
+          id: "featured",
+          label: "Featured",
+          description:
+            "Live and upcoming villa-plot layouts with clear approvals — walk the land, review paperwork, and speak with our Bengaluru team.",
+          learnMoreHref: "/projects#listings",
+          columns: [
+            [
+              {
+                label: "Jeevan Sagar Lakeview Garden",
+                href: "/projects/js-lakeview-garden",
+              },
+              {
+                label: "Dhanapriya Paradise",
+                href: "/projects/dhanapriya-paradise",
+              },
+              {
+                label: "Kanakasree Enclave",
+                href: "/projects/kanakasree-enclave",
+              },
+              { label: "Royal Meadows", href: "/projects/royal-meadows" },
+            ],
+            [
+              { label: "All listings", href: "/projects#listings" },
+              {
+                label: "Villa plots",
+                href: "/projects/category/villa-plots",
+              },
+              { label: "Ongoing projects", href: "/projects/category/ongoing" },
+            ],
+            [
+              { label: "Book a site visit", href: "/contact" },
+              { label: "Download brochure", href: "/projects/js-lakeview-garden" },
+              { label: "WhatsApp enquiry", href: "/contact" },
+            ],
+          ],
+        },
+        {
           id: "villa-plots",
           label: "Villa Plots",
           description:
-            "Premium residential plots with clear dimensions, approach roads, and locations chosen for long-term growth along Bengaluru’s eastern corridor.",
+            "Premium residential plots with clear dimensions, approach roads, and locations chosen for long-term growth.",
           learnMoreHref: "/projects/category/villa-plots",
           columns: [
             [
-              { label: "Jeevan Sagar Lakeview Garden", href: "/projects/js-lakeview-garden" },
-              { label: "Dhanapriya Paradise", href: "/projects/dhanapriya-paradise" },
-              { label: "Kanakasree Enclave", href: "/projects/kanakasree-enclave" },
-              { label: "Plot sizing guide", href: "/projects/category/villa-plots" },
+              {
+                label: "Lakeview Garden — Mittemari",
+                href: "/projects/js-lakeview-garden",
+              },
+              {
+                label: "Dhanapriya — Madanahatti",
+                href: "/projects/dhanapriya-paradise",
+              },
+              {
+                label: "Kanakasree — Lingapura",
+                href: "/projects/kanakasree-enclave",
+              },
             ],
             [
-              { label: "East Bengaluru layouts", href: "/projects/category/growth-corridors" },
-              { label: "MPA-approved projects", href: "/projects#listings" },
-              { label: "RERA-registered listings", href: "/projects#listings" },
+              { label: "Plot sizes & layouts", href: "/projects#listings" },
+              { label: "DTCP / MPA approvals", href: "/projects#listings" },
+              { label: "Amenities overview", href: "/projects/js-lakeview-garden" },
             ],
             [
               { label: "Site visit booking", href: "/contact" },
-              { label: "Investment overview", href: "/insights/investment-tips" },
-              { label: "Download brochure", href: "/contact" },
+              { label: "Price on request", href: "/contact" },
+              { label: "Investment tips", href: "/insights/investment-tips" },
             ],
           ],
         },
@@ -68,48 +113,26 @@ export const mainNavigation: NavItem[] = [
           id: "ongoing",
           label: "Ongoing",
           description:
-            "Active layouts where earthwork, roads and amenities are progressing — with regular updates for buyers who want to track development on the ground.",
+            "Active layouts where roads, lighting and amenities are progressing — visit on the ground and track delivery.",
           learnMoreHref: "/projects/category/ongoing",
           columns: [
             [
-              { label: "Jeevan Sagar Lakeview Garden", href: "/projects/js-lakeview-garden" },
-              { label: "Current launches", href: "/projects/category/ongoing" },
-              { label: "Construction updates", href: "/projects/js-lakeview-garden" },
-              { label: "Amenity progress", href: "/projects/category/ongoing" },
+              {
+                label: "Lakeview Garden updates",
+                href: "/projects/js-lakeview-garden",
+              },
+              { label: "All ongoing", href: "/projects/category/ongoing" },
+              { label: "On-site progress photos", href: "/projects/js-lakeview-garden" },
             ],
             [
-              { label: "Early-bird pricing", href: "/contact" },
               { label: "Payment plans", href: "/contact" },
-              { label: "Bank tie-ups", href: "/contact" },
+              { label: "Bankers & finance", href: "/contact" },
+              { label: "Early enquiries", href: "/contact" },
             ],
             [
               { label: "Schedule a visit", href: "/contact" },
-              { label: "WhatsApp updates", href: "/contact" },
-              { label: "Project FAQs", href: "/about" },
-            ],
-          ],
-        },
-        {
-          id: "growth-corridors",
-          label: "Growth Corridors",
-          description:
-            "Land portfolios positioned along infrastructure-led growth routes — where connectivity, employment hubs and planned expansion meet verified paperwork.",
-          learnMoreHref: "/projects/category/growth-corridors",
-          columns: [
-            [
-              { label: "Whitefield corridor", href: "/locations/whitefield" },
-              { label: "Malur expansion", href: "/locations/malur" },
-              { label: "Hoskote belt", href: "/locations/hoskote" },
-            ],
-            [
-              { label: "Connectivity map", href: "/projects/category/growth-corridors" },
-              { label: "Future infrastructure", href: "/insights/area-spotlight-malur" },
-              { label: "Area comparisons", href: "/locations" },
-            ],
-            [
-              { label: "Investment advisory", href: "/contact" },
-              { label: "Resale guidance", href: "/services/after-sales" },
-              { label: "Market insights", href: "/insights" },
+              { label: "Call our office", href: "/contact" },
+              { label: "About the developer", href: "/about" },
             ],
           ],
         },
@@ -126,7 +149,7 @@ export const mainNavigation: NavItem[] = [
           id: "buying",
           label: "Buying",
           description:
-            "End-to-end support from first enquiry through site visits, plot selection and registration — with a Bengaluru team you can reach by phone or WhatsApp.",
+            "From first enquiry through site visits, plot selection and registration — with a team you can reach by phone or WhatsApp.",
           learnMoreHref: "/services/buying",
           columns: [
             [
@@ -141,8 +164,8 @@ export const mainNavigation: NavItem[] = [
             ],
             [
               { label: "NRI enquiries", href: "/contact" },
-              { label: "Family plot planning", href: "/services/buying" },
               { label: "Callback request", href: "/contact" },
+              { label: "Enquire online", href: "/contact#enquire" },
             ],
           ],
         },
@@ -150,22 +173,22 @@ export const mainNavigation: NavItem[] = [
           id: "documentation",
           label: "Documentation",
           description:
-            "Clear paperwork trails for every layout — approvals, titles and compliance details explained in plain language before you commit.",
+            "Approvals, titles and compliance explained in plain language before you commit.",
           learnMoreHref: "/services/documentation",
           columns: [
             [
               { label: "Approval certificates", href: "/services/documentation" },
               { label: "Title verification", href: "/services/documentation" },
-              { label: "RERA compliance", href: "/services/documentation" },
+              { label: "DTCP / MPA guidance", href: "/services/documentation" },
             ],
             [
               { label: "Layout plans", href: "/projects" },
-              { label: "Encumbrance checks", href: "/contact" },
               { label: "Legal coordination", href: "/contact" },
+              { label: "Buyer checklist", href: "/insights/buying-guide" },
             ],
             [
               { label: "ISO 9001 processes", href: "/about" },
-              { label: "Buyer checklist", href: "/insights/buying-guide" },
+              { label: "Privacy policy", href: "/privacy" },
               { label: "FAQs", href: "/about" },
             ],
           ],
@@ -174,7 +197,7 @@ export const mainNavigation: NavItem[] = [
           id: "after-sales",
           label: "After Sales",
           description:
-            "Support that continues after booking — from possession coordination to resale guidance and referrals within our buyer community.",
+            "Support after booking — possession coordination, community updates and resale guidance.",
           learnMoreHref: "/services/after-sales",
           columns: [
             [
@@ -185,22 +208,17 @@ export const mainNavigation: NavItem[] = [
             [
               { label: "Resale assistance", href: "/services/after-sales" },
               { label: "Referral programme", href: "/services/after-sales" },
-              { label: "Complaint resolution", href: "/contact" },
+              { label: "Support desk", href: "/contact" },
             ],
             [
-              { label: "Contact support", href: "/contact" },
-              { label: "Office visit", href: "/contact" },
-              { label: "Feedback", href: "/contact" },
+              { label: "Visit our office", href: "/contact" },
+              { label: "WhatsApp support", href: "/contact" },
+              { label: "Share feedback", href: "/contact" },
             ],
           ],
         },
       ],
     },
-  },
-  {
-    id: "our-work",
-    label: "Our Work",
-    href: "/projects",
   },
   {
     id: "locations",
@@ -209,26 +227,29 @@ export const mainNavigation: NavItem[] = [
       sidebarLabel: "Locations",
       panels: [
         {
-          id: "whitefield",
-          label: "Whitefield",
+          id: "bagepalli",
+          label: "Bagepalli",
           description:
-            "Residential layouts near IT corridors and established neighbourhoods — with strong rental demand and mature social infrastructure.",
-          learnMoreHref: "/locations/whitefield",
+            "NH-44 Bengaluru–Hyderabad corridor near Mittemari — home to Jeevan Sagar Lakeview Garden with DTCP-approved villa plots.",
+          learnMoreHref: "/projects/js-lakeview-garden",
           columns: [
             [
-              { label: "Nearby projects", href: "/projects/category/growth-corridors" },
-              { label: "Connectivity", href: "/locations/whitefield" },
-              { label: "Schools & hospitals", href: "/locations/whitefield" },
+              {
+                label: "Lakeview Garden",
+                href: "/projects/js-lakeview-garden",
+              },
+              { label: "Location map", href: "/projects/js-lakeview-garden#map" },
+              { label: "Site updates", href: "/projects/js-lakeview-garden" },
             ],
             [
-              { label: "Plot availability", href: "/contact" },
-              { label: "Price trends", href: "/insights/market-update-q2" },
-              { label: "Site visits", href: "/contact" },
+              { label: "NH-44 access", href: "/projects/js-lakeview-garden" },
+              { label: "Airport distance", href: "/projects/js-lakeview-garden" },
+              { label: "Chikkaballapura belt", href: "/projects/js-lakeview-garden" },
             ],
             [
-              { label: "Area guide", href: "/locations/whitefield" },
-              { label: "Investment outlook", href: "/insights/investment-tips" },
-              { label: "Enquire now", href: "/contact" },
+              { label: "Book a visit", href: "/contact" },
+              { label: "Request price", href: "/contact" },
+              { label: "Office in K.R. Puram", href: "/contact" },
             ],
           ],
         },
@@ -236,47 +257,53 @@ export const mainNavigation: NavItem[] = [
           id: "malur",
           label: "Malur",
           description:
-            "Emerging growth pockets east of Bengaluru — attractive entry pricing with improving road links and industrial expansion nearby.",
+            "Eastern growth corridor with Whitefield links — Dhanapriya Paradise and Kanakasree Enclave nearby.",
           learnMoreHref: "/locations/malur",
           columns: [
             [
-              { label: "Active layouts", href: "/projects/category/ongoing" },
-              { label: "Distance to city", href: "/locations/malur" },
-              { label: "Industrial belt", href: "/locations/malur" },
+              {
+                label: "Dhanapriya Paradise",
+                href: "/projects/dhanapriya-paradise",
+              },
+              {
+                label: "Kanakasree Enclave",
+                href: "/projects/kanakasree-enclave",
+              },
+              { label: "Malur area guide", href: "/locations/malur" },
             ],
             [
-              { label: "Plot sizes", href: "/projects/dhanapriya-paradise" },
-              { label: "Amenities", href: "/projects/kanakasree-enclave" },
-              { label: "Visit scheduling", href: "/contact" },
+              { label: "Whitefield corridor", href: "/locations/whitefield" },
+              { label: "Hoskote belt", href: "/locations/hoskote" },
+              { label: "All growth corridors", href: "/projects/category/growth-corridors" },
             ],
             [
-              { label: "Buyer stories", href: "/about" },
-              { label: "Brochure request", href: "/contact" },
-              { label: "WhatsApp chat", href: "/contact" },
+              { label: "Site visits", href: "/contact" },
+              { label: "Area comparison", href: "/locations" },
+              { label: "Enquire now", href: "/contact" },
             ],
           ],
         },
         {
-          id: "hoskote",
-          label: "Hoskote",
+          id: "hoskote-whitefield",
+          label: "Hoskote & Whitefield",
           description:
-            "Strategic corridors with airport proximity and planned infrastructure — suited for buyers planning medium to long-term appreciation.",
-          learnMoreHref: "/locations/hoskote",
+            "Airport-linked and IT-corridor neighbourhoods for buyers planning connectivity and long-term value.",
+          learnMoreHref: "/locations",
           columns: [
             [
-              { label: "Project listings", href: "/projects/royal-meadows" },
+              { label: "Hoskote overview", href: "/locations/hoskote" },
+              { label: "Whitefield overview", href: "/locations/whitefield" },
+              { label: "Royal Meadows", href: "/projects/royal-meadows" },
+            ],
+            [
               { label: "Airport access", href: "/locations/hoskote" },
-              { label: "Upcoming roads", href: "/locations/hoskote" },
+              { label: "IT corridor living", href: "/locations/whitefield" },
+              { label: "All locations", href: "/locations" },
             ],
             [
-              { label: "Layout approvals", href: "/services/documentation" },
-              { label: "Payment options", href: "/contact" },
-              { label: "Book a visit", href: "/contact" },
-            ],
-            [
-              { label: "Compare areas", href: "/locations" },
-              { label: "Investment FAQ", href: "/insights/investment-tips" },
-              { label: "Talk to us", href: "/contact" },
+              { label: "Talk to sales", href: "/contact" },
+              { label: "Market insights", href: "/insights" },
+              { label: "Book a callback", href: "/contact#enquire" },
             ],
           ],
         },
@@ -284,85 +311,9 @@ export const mainNavigation: NavItem[] = [
     },
   },
   {
-    id: "who-we-are",
-    label: "Who We Are",
-    megaMenu: {
-      sidebarLabel: "Who We Are",
-      panels: [
-        {
-          id: "company",
-          label: "Company",
-          description:
-            "For over a decade, J.S. Garden Developers has planned and delivered residential layouts across Bengaluru’s eastern growth corridors.",
-          learnMoreHref: "/about",
-          columns: [
-            [
-              { label: "About us", href: "/about" },
-              { label: "Our story", href: "/about" },
-              { label: "Leadership", href: "/about" },
-            ],
-            [
-              { label: "ISO certification", href: "/about" },
-              { label: "Values & principles", href: "/about" },
-              { label: "Awards & recognition", href: "/about" },
-            ],
-            [
-              { label: "Careers", href: "/contact" },
-              { label: "Partners", href: "/contact" },
-              { label: "Media kit", href: "/contact" },
-            ],
-          ],
-        },
-        {
-          id: "commitments",
-          label: "Commitments",
-          description:
-            "We focus on trust, clear paperwork and layouts you can inspect on the ground — before you decide.",
-          learnMoreHref: "/about",
-          columns: [
-            [
-              { label: "Quality standards", href: "/about" },
-              { label: "Transparency", href: "/about" },
-              { label: "Buyer protection", href: "/about" },
-            ],
-            [
-              { label: "Environmental care", href: "/about" },
-              { label: "Community impact", href: "/about" },
-              { label: "Safety practices", href: "/about" },
-            ],
-            [
-              { label: "Sustainability", href: "/about" },
-              { label: "CSR initiatives", href: "/about" },
-              { label: "Contact us", href: "/contact" },
-            ],
-          ],
-        },
-        {
-          id: "insights",
-          label: "Insights",
-          description:
-            "Guides, market notes and practical advice for first-time plot buyers and investors exploring Bengaluru’s land market.",
-          learnMoreHref: "/insights",
-          columns: [
-            [
-              { label: "Buying guide", href: "/insights/buying-guide" },
-              { label: "Documentation 101", href: "/insights/documentation-101" },
-              { label: "Loan basics", href: "/insights/loan-basics" },
-            ],
-            [
-              { label: "Area spotlights", href: "/insights/area-spotlight-malur" },
-              { label: "Market updates", href: "/insights/market-update-q2" },
-              { label: "Investment tips", href: "/insights/investment-tips" },
-            ],
-            [
-              { label: "News & updates", href: "/insights" },
-              { label: "Newsletter", href: "/contact" },
-              { label: "Subscribe", href: "/contact" },
-            ],
-          ],
-        },
-      ],
-    },
+    id: "about",
+    label: "About",
+    href: "/about",
   },
   {
     id: "insights",

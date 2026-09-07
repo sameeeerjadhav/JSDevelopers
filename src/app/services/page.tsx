@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import { PageHero } from "@/components/PageHero";
-import { SectionHub } from "@/components/SectionHub";
+import { ServicesHub } from "@/components/ServicesHub";
 import { servicePages } from "@/lib/section-pages";
 
 const title = "Services";
@@ -20,14 +19,9 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <>
-      <Header />
+      <Header variant="overlay" />
       <main className="overflow-x-hidden">
-        <PageHero
-          eyebrow="Services"
-          title="Support at every step of your plot journey"
-          description="From first site visit through paperwork and registration — our Bengaluru team is with you."
-        />
-        <SectionHub basePath="/services" sections={servicePages} />
+        <ServicesHub sections={servicePages} />
       </main>
       <Footer />
     </>

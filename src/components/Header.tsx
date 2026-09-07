@@ -74,7 +74,6 @@ const MEGA_MENU_PRIMARY_PATH: Partial<Record<string, string>> = {
   projects: "/projects",
   services: "/services",
   locations: "/locations",
-  "who-we-are": "/about",
 };
 
 function isNavItemActive(item: NavItem, pathname: string): boolean {
