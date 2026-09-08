@@ -10,8 +10,7 @@ const title = "Contact Us";
 const description =
   "Visit our K.R. Puram office, call, WhatsApp, or enquire online for plot site visits across Bengaluru.";
 
-const HERO_IMAGE =
-  "/projects/js-lakeview-garden/hero-entrance-2.jpg";
+const HERO_IMAGE = "/projects/js-lakeview-garden/hero-entrance-2.jpg";
 
 export const metadata: Metadata = {
   title,
@@ -97,9 +96,9 @@ export default function ContactPage() {
   return (
     <>
       <Header variant="overlay" />
-      <main className="overflow-x-hidden">
+      <main className="overflow-x-clip">
         {/* Hero */}
-        <section className="relative min-h-[52svh] overflow-hidden md:min-h-[62svh]">
+        <section className="relative min-h-[min(28rem,70svh)] overflow-hidden sm:min-h-[52svh] md:min-h-[62svh]">
           <Image
             src={HERO_IMAGE}
             alt=""
@@ -109,28 +108,31 @@ export default function ContactPage() {
             className="object-cover object-center"
           />
           <div
-            className="absolute inset-0 bg-gradient-to-t from-navy-deep/90 via-navy/55 to-navy/30"
+            className="absolute inset-0 bg-gradient-to-t from-navy-deep/92 via-navy/60 to-navy/35"
             aria-hidden
           />
-          <div className="absolute inset-x-0 bottom-0 px-5 pb-12 sm:px-8 sm:pb-16 md:pb-20">
-            <div className="mx-auto max-w-7xl">
-              <div className="flex items-center gap-4">
-                <span className="block h-px w-10 bg-[#e8c84a] sm:w-14" aria-hidden />
-                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#e8c84a] sm:text-sm">
+          <div className="absolute inset-x-0 bottom-0 px-4 pb-8 pt-24 sm:px-8 sm:pb-14 sm:pt-28 md:pb-20">
+            <div className="mx-auto max-w-7xl min-w-0">
+              <div className="flex items-center gap-3 sm:gap-4">
+                <span
+                  className="block h-px w-8 bg-[#e8c84a] sm:w-14"
+                  aria-hidden
+                />
+                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#e8c84a] sm:text-xs sm:tracking-[0.28em] md:text-sm">
                   Contact us
                 </p>
               </div>
-              <h1 className="mt-4 max-w-3xl text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
+              <h1 className="mt-3 max-w-3xl text-[clamp(1.5rem,6.5vw,3.75rem)] font-bold leading-[1.15] tracking-tight text-white sm:mt-4">
                 Let’s plan your site visit
               </h1>
-              <p className="mt-4 max-w-xl text-sm text-white/85 sm:text-base md:text-lg">
+              <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/85 sm:mt-4 sm:text-base md:text-lg">
                 Reach us by phone, WhatsApp, email, or visit our Old Madras Road
                 office in K.R. Puram.
               </p>
-              <div className="mt-8 flex flex-wrap gap-3">
+              <div className="mt-5 flex w-full max-w-sm flex-col gap-2.5 sm:mt-8 sm:max-w-none sm:flex-row sm:flex-wrap sm:gap-3">
                 <a
                   href="#enquire"
-                  className="bg-[#e8c84a] px-6 py-3.5 text-xs font-semibold uppercase tracking-[0.14em] text-navy transition hover:bg-[#f0d45a] sm:text-sm"
+                  className="inline-flex min-h-11 w-full items-center justify-center bg-[#e8c84a] px-5 py-3 text-center text-[11px] font-semibold uppercase tracking-[0.12em] text-navy transition hover:bg-[#f0d45a] sm:w-auto sm:px-6 sm:py-3.5 sm:text-xs sm:tracking-[0.14em] md:text-sm"
                 >
                   Enquire now
                 </a>
@@ -138,7 +140,7 @@ export default function ContactPage() {
                   href={`https://wa.me/${siteConfig.whatsapp}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="border border-white/70 px-6 py-3.5 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-white/10 sm:text-sm"
+                  className="inline-flex min-h-11 w-full items-center justify-center border border-white/70 px-5 py-3 text-center text-[11px] font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-white/10 sm:w-auto sm:px-6 sm:py-3.5 sm:text-xs sm:tracking-[0.14em] md:text-sm"
                 >
                   WhatsApp
                 </a>
@@ -150,23 +152,23 @@ export default function ContactPage() {
         {/* Quick contact strip */}
         <section className="relative overflow-hidden border-b border-navy/8 bg-white">
           <MandalaBackground tone="white" />
-          <div className="relative z-10 mx-auto grid max-w-7xl gap-px bg-navy/8 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="relative z-10 mx-auto grid max-w-7xl divide-y divide-navy/8 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4">
             {quickContacts.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
                 target={item.external ? "_blank" : undefined}
                 rel={item.external ? "noopener noreferrer" : undefined}
-                className="group flex gap-4 bg-white px-5 py-7 transition hover:bg-sand sm:px-6 sm:py-8"
+                className="group flex min-w-0 items-start gap-3.5 bg-white px-4 py-5 transition hover:bg-sand sm:gap-4 sm:px-6 sm:py-8"
               >
-                <span className="grid h-11 w-11 shrink-0 place-items-center border border-[#e8c84a]/70 text-[#b8922e] transition group-hover:bg-[#e8c84a]/15">
+                <span className="grid h-10 w-10 shrink-0 place-items-center border border-[#e8c84a]/70 text-[#b8922e] transition group-hover:bg-[#e8c84a]/15 sm:h-11 sm:w-11">
                   <ContactIcon type={item.icon} />
                 </span>
-                <span>
-                  <span className="block text-[10px] font-bold uppercase tracking-[0.18em] text-[#b8922e]">
+                <span className="min-w-0">
+                  <span className="block text-[10px] font-bold uppercase tracking-[0.16em] text-[#b8922e]">
                     {item.label}
                   </span>
-                  <span className="mt-1.5 block text-sm font-semibold text-navy sm:text-[15px]">
+                  <span className="mt-1 block break-words text-sm font-semibold leading-snug text-navy sm:mt-1.5 sm:text-[15px]">
                     {item.value}
                   </span>
                 </span>
@@ -176,41 +178,41 @@ export default function ContactPage() {
         </section>
 
         {/* Office + map */}
-        <section className="relative overflow-hidden bg-[#f3f1ea] py-14 sm:py-20">
+        <section className="relative overflow-hidden bg-[#f3f1ea] py-10 sm:py-16 md:py-20">
           <MandalaBackground tone="sand" className="opacity-50" />
-          <div className="relative z-10 mx-auto max-w-7xl px-5 md:px-8">
-            <div className="flex items-center gap-4">
+          <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-5 md:px-8">
+            <div className="flex items-center gap-3 sm:gap-4">
               <span className="block h-px flex-1 bg-[#c9a84a]/50" aria-hidden />
-              <p className="shrink-0 text-xs font-bold uppercase tracking-[0.22em] text-[#b8922e] sm:text-sm">
+              <p className="shrink-0 text-[10px] font-bold uppercase tracking-[0.18em] text-[#b8922e] sm:text-xs sm:tracking-[0.22em] md:text-sm">
                 Office & map
               </p>
               <span className="block h-px flex-1 bg-[#c9a84a]/50" aria-hidden />
             </div>
 
-            <div className="mt-10 grid gap-8 lg:grid-cols-[1.25fr_0.95fr] lg:items-stretch lg:gap-10">
-              <div className="overflow-hidden border border-[#e8c84a]/50 bg-white">
+            <div className="mt-7 grid min-w-0 gap-5 sm:mt-10 sm:gap-8 lg:grid-cols-[1.25fr_0.95fr] lg:items-stretch lg:gap-10">
+              <div className="overflow-hidden rounded-xl border border-[#e8c84a]/50 bg-white sm:rounded-2xl">
                 <iframe
                   title="JS Garden Developers office location"
                   src={siteConfig.mapEmbedUrl}
-                  className="h-[320px] w-full border-0 sm:h-[420px] lg:h-full lg:min-h-[460px]"
+                  className="h-[240px] w-full border-0 sm:h-[360px] md:h-[420px] lg:h-full lg:min-h-[460px]"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                   allowFullScreen
                 />
               </div>
 
-              <div className="flex flex-col justify-center border border-[#e8c84a]/40 bg-white px-6 py-8 sm:px-8 sm:py-10">
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#b8922e]">
+              <div className="flex min-w-0 flex-col justify-center rounded-xl border border-[#e8c84a]/40 bg-white px-4 py-6 sm:rounded-2xl sm:px-8 sm:py-10">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#b8922e] sm:text-xs sm:tracking-[0.2em]">
                   Head office
                 </p>
-                <h2 className="mt-3 text-2xl font-bold text-navy sm:text-3xl">
+                <h2 className="mt-2 text-[clamp(1.25rem,4.5vw,1.875rem)] font-bold leading-snug text-navy sm:mt-3">
                   {siteConfig.name}
                 </h2>
-                <p className="mt-4 text-sm leading-relaxed text-muted sm:text-base">
+                <p className="mt-3 text-sm leading-relaxed text-muted sm:mt-4 sm:text-base">
                   {siteConfig.address}
                 </p>
 
-                <dl className="mt-8 space-y-4 border-t border-navy/10 pt-6 text-sm">
+                <dl className="mt-6 space-y-3.5 border-t border-navy/10 pt-5 text-sm sm:mt-8 sm:space-y-4 sm:pt-6">
                   <div>
                     <dt className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#b8922e]">
                       Phone
@@ -231,7 +233,7 @@ export default function ContactPage() {
                     <dd className="mt-1">
                       <a
                         href={`mailto:${siteConfig.email}`}
-                        className="font-semibold text-navy hover:text-forest break-all"
+                        className="break-all font-semibold text-navy hover:text-forest"
                       >
                         {siteConfig.email}
                       </a>
@@ -241,7 +243,9 @@ export default function ContactPage() {
                     <dt className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#b8922e]">
                       Certification
                     </dt>
-                    <dd className="mt-1 font-semibold text-navy">{siteConfig.iso}</dd>
+                    <dd className="mt-1 font-semibold text-navy">
+                      {siteConfig.iso}
+                    </dd>
                   </div>
                 </dl>
 
@@ -249,10 +253,10 @@ export default function ContactPage() {
                   href={siteConfig.mapLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-8 inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.14em] text-forest sm:text-sm"
+                  className="mt-6 inline-flex min-h-11 items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-forest sm:mt-8 sm:min-h-0 sm:gap-3 sm:text-xs sm:tracking-[0.14em] md:text-sm"
                 >
                   Open in Google Maps
-                  <span className="block h-px w-10 bg-forest" aria-hidden />
+                  <span className="block h-px w-8 bg-forest sm:w-10" aria-hidden />
                 </a>
               </div>
             </div>

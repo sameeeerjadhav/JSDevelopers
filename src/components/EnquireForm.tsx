@@ -11,7 +11,7 @@ import { trackEvent } from "@/lib/tracking";
 type Status = "idle" | "loading" | "success" | "error";
 
 const fieldClass =
-  "mt-2 w-full border border-navy/15 bg-white px-4 py-3.5 text-sm text-navy outline-none transition focus:border-[#e8c84a]";
+  "mt-1.5 w-full border border-navy/15 bg-white px-3.5 py-3 text-sm text-navy outline-none transition focus:border-[#e8c84a] sm:mt-2 sm:px-4 sm:py-3.5";
 
 export function EnquireForm() {
   const [status, setStatus] = useState<Status>("idle");
@@ -56,25 +56,31 @@ export function EnquireForm() {
   }
 
   return (
-    <section id="enquire" className="relative overflow-hidden bg-white py-16 md:py-24">
+    <section
+      id="enquire"
+      className="relative overflow-x-clip bg-white py-10 sm:py-16 md:py-24"
+    >
       <MandalaBackground tone="white" />
-      <div className="relative z-10 mx-auto grid max-w-7xl gap-12 px-5 md:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-        <div>
-          <div className="flex items-center gap-4">
-            <span className="block h-px w-10 bg-[#e8c84a] sm:w-14" aria-hidden />
-            <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#b8922e] sm:text-sm">
+      <div className="relative z-10 mx-auto grid max-w-7xl min-w-0 gap-8 px-4 sm:gap-12 sm:px-5 md:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+        <div className="min-w-0">
+          <div className="flex items-center gap-3 sm:gap-4">
+            <span
+              className="block h-px w-8 bg-[#e8c84a] sm:w-14"
+              aria-hidden
+            />
+            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#b8922e] sm:text-xs sm:tracking-[0.22em] md:text-sm">
               Enquire
             </p>
           </div>
-          <h2 className="mt-5 text-3xl font-bold tracking-tight text-navy sm:text-4xl md:text-5xl">
+          <h2 className="mt-3 text-[clamp(1.4rem,5vw,3rem)] font-bold leading-[1.15] tracking-tight text-navy sm:mt-5">
             Book a site visit or request a callback
           </h2>
-          <p className="mt-4 max-w-md text-sm leading-relaxed text-muted sm:text-base md:text-lg">
+          <p className="mt-3 max-w-md text-sm leading-relaxed text-muted sm:mt-4 sm:text-base md:text-lg">
             Share your details and preferred project. Our team responds on call
             or WhatsApp — usually the same day.
           </p>
 
-          <div className="mt-8 space-y-4 border-l-2 border-[#e8c84a] pl-5">
+          <div className="mt-6 space-y-3.5 border-l-2 border-[#e8c84a] pl-4 sm:mt-8 sm:space-y-4 sm:pl-5">
             <p className="text-sm text-navy">
               <span className="block text-[10px] font-bold uppercase tracking-[0.16em] text-[#b8922e]">
                 Phone
@@ -92,7 +98,7 @@ export function EnquireForm() {
               </span>
               <a
                 href={`mailto:${siteConfig.email}`}
-                className="mt-1 inline-block font-semibold break-all hover:text-forest"
+                className="mt-1 inline-block break-all font-semibold hover:text-forest"
               >
                 {siteConfig.email}
               </a>
@@ -113,9 +119,9 @@ export function EnquireForm() {
 
         <form
           onSubmit={onSubmit}
-          className="border border-[#e8c84a]/40 bg-[#f7f5ef] p-6 sm:p-8 md:p-10"
+          className="min-w-0 rounded-xl border border-[#e8c84a]/40 bg-[#f7f5ef] p-4 sm:rounded-none sm:p-8 md:p-10"
         >
-          <div className="grid gap-5 sm:grid-cols-2">
+          <div className="grid gap-4 sm:gap-5 sm:grid-cols-2">
             <label className="block text-sm font-medium text-navy">
               Full name
               <input
@@ -172,17 +178,20 @@ export function EnquireForm() {
             </label>
           </div>
 
-          <label className="mt-5 flex items-start gap-3 text-sm text-muted">
+          <label className="mt-4 flex items-start gap-3 text-sm leading-relaxed text-muted sm:mt-5">
             <input
               required
               name="consent"
               type="checkbox"
-              className="mt-1 h-4 w-4 accent-[#b8922e]"
+              className="mt-1 h-4 w-4 shrink-0 accent-[#b8922e]"
             />
             <span>
               I agree to be contacted by JS Garden Developers about my enquiry
               and understand my details will be handled as described in the{" "}
-              <Link href="/privacy" className="text-forest underline hover:no-underline">
+              <Link
+                href="/privacy"
+                className="text-forest underline hover:no-underline"
+              >
                 privacy policy
               </Link>
               .
@@ -192,7 +201,7 @@ export function EnquireForm() {
           <button
             type="submit"
             disabled={status === "loading"}
-            className="mt-7 w-full bg-navy py-3.5 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-navy-deep disabled:opacity-60 sm:text-sm"
+            className="mt-5 inline-flex min-h-11 w-full items-center justify-center bg-navy py-3.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-navy-deep disabled:opacity-60 sm:mt-7 sm:text-xs sm:tracking-[0.14em] md:text-sm"
           >
             {status === "loading" ? "Sending…" : "Submit enquiry"}
           </button>
