@@ -202,7 +202,7 @@ export function ProjectsShowcase({ showListings = true }: ProjectsShowcaseProps)
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.35 }}
-              className="relative aspect-[16/10] w-full min-w-0 overflow-hidden bg-navy sm:aspect-[4/3]"
+              className="relative aspect-[16/10] w-full min-w-0 overflow-hidden rounded-xl bg-navy sm:aspect-[4/3] sm:rounded-2xl"
             >
               <Image
                 src={active.image}

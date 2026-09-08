@@ -19,10 +19,12 @@ function GoldFrame({
   return (
     <div className={`relative ${className}`}>
       <div
-        className="pointer-events-none absolute -inset-2 border border-[#e8c84a]/70 sm:-inset-3"
+        className="pointer-events-none absolute -inset-2 rounded-xl border border-[#e8c84a]/70 sm:-inset-3 sm:rounded-2xl"
         aria-hidden
       />
-      <div className="absolute inset-0 overflow-hidden bg-navy/10">{children}</div>
+      <div className="absolute inset-0 overflow-hidden rounded-xl bg-navy/10 sm:rounded-2xl">
+        {children}
+      </div>
     </div>
   );
 }
@@ -583,7 +585,7 @@ export function ProjectDetail({ project }: { project: Project }) {
               </Link>
             </div>
           </div>
-          <div className="relative min-h-[280px] border border-[#e8c84a]/40 sm:min-h-[360px] lg:min-h-full">
+          <div className="relative min-h-[280px] overflow-hidden rounded-xl border border-[#e8c84a]/40 sm:min-h-[360px] sm:rounded-2xl lg:min-h-full">
             <Image
               src={gallery[2]?.src ?? project.heroImage}
               alt=""
@@ -687,7 +689,7 @@ export function ProjectDetail({ project }: { project: Project }) {
           <div className="relative z-10 mx-auto max-w-7xl px-5 md:px-8">
             <SectionRule label="Location map" />
             <div className="mt-10 grid gap-8 lg:grid-cols-[1.35fr_0.85fr] lg:gap-10 lg:items-stretch">
-              <div className="overflow-hidden border border-[#e8c84a]/50 bg-white">
+              <div className="overflow-hidden rounded-xl border border-[#e8c84a]/50 bg-white sm:rounded-2xl">
                 {project.mapEmbedUrl ? (
                   <iframe
                     title={`${project.name} location map`}
@@ -765,7 +767,7 @@ export function ProjectDetail({ project }: { project: Project }) {
                       {plan.title}
                     </p>
                     <div
-                      className={`relative mt-3 w-full overflow-hidden bg-[#f7f5ef] ${
+                      className={`relative mt-3 w-full overflow-hidden rounded-xl bg-[#f7f5ef] sm:rounded-2xl ${
                         isMaster
                           ? "aspect-[16/10] min-h-[280px] sm:min-h-[420px] md:min-h-[520px]"
                           : "mx-auto max-w-xl aspect-[4/3]"
@@ -808,7 +810,7 @@ export function ProjectDetail({ project }: { project: Project }) {
               {updates.map((item) => (
                 <div
                   key={item.src}
-                  className="relative aspect-[4/3] overflow-hidden bg-sand"
+                  className="relative aspect-[4/3] overflow-hidden rounded-xl bg-sand sm:rounded-2xl"
                 >
                   <Image
                     src={item.src}
@@ -825,7 +827,7 @@ export function ProjectDetail({ project }: { project: Project }) {
       ) : null}
 
       {/* Mobile sticky CTA */}
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-navy/10 bg-white/95 p-3 backdrop-blur md:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-navy/10 bg-white/95 p-2.5 pb-[max(0.625rem,env(safe-area-inset-bottom))] backdrop-blur md:hidden">
         <div className="flex gap-2">
           <a
             href={waHref}
@@ -837,22 +839,22 @@ export function ProjectDetail({ project }: { project: Project }) {
                 project: project.name,
               })
             }
-            className="flex-1 bg-[#25D366] py-3 text-center text-xs font-semibold uppercase tracking-wide text-white"
+            className="flex min-h-11 flex-1 items-center justify-center bg-[#25D366] text-center text-[11px] font-semibold uppercase tracking-wide text-white"
           >
             WhatsApp
           </a>
           <Link
             href="/contact"
             onClick={() => sessionStorage.setItem("interestedProject", project.name)}
-            className="flex-1 bg-navy py-3 text-center text-xs font-semibold uppercase tracking-wide text-white"
+            className="flex min-h-11 flex-1 items-center justify-center bg-navy text-center text-[11px] font-semibold uppercase tracking-wide text-white"
           >
             Enquire
           </Link>
         </div>
       </div>
 
-      <div className="pb-20 md:pb-0">
-        <WorkTogether />
+      <div className="pb-[4.75rem] md:pb-0">
+        <WorkTogether variant="project" />
       </div>
     </>
   );
