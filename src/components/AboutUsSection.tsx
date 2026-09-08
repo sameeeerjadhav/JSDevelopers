@@ -57,8 +57,8 @@ function CountUpStat({ value, delay = 0 }: { value: string; delay?: number }) {
 export function AboutUsSection({ variant = "home" }: AboutUsSectionProps) {
   return (
     <section
-      className={`relative py-14 sm:py-20 md:py-28 ${
-        variant === "page" ? "overflow-hidden bg-white" : ""
+      className={`relative overflow-x-clip py-12 sm:py-20 md:py-28 ${
+        variant === "page" ? "bg-white" : ""
       }`}
     >
       <div
@@ -71,18 +71,18 @@ export function AboutUsSection({ variant = "home" }: AboutUsSectionProps) {
         />
       </div>
 
-      <div className="relative z-10 mx-auto grid max-w-6xl gap-10 px-5 sm:gap-14 md:px-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-20">
-        <div className="max-w-2xl">
-          <p className="flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted sm:text-xs sm:tracking-[0.22em]">
-            <span className="block h-px w-6 bg-forest sm:w-8" aria-hidden />
+      <div className="relative z-10 mx-auto grid max-w-6xl min-w-0 gap-8 px-4 sm:gap-12 sm:px-5 md:gap-14 md:px-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-20">
+        <div className="min-w-0 max-w-2xl">
+          <p className="flex items-center gap-2.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-muted sm:gap-3 sm:text-xs sm:tracking-[0.22em]">
+            <span className="block h-px w-5 bg-forest sm:w-8" aria-hidden />
             Who we are
           </p>
 
-          <h2 className="mt-4 text-2xl font-bold leading-[1.15] tracking-tight text-navy sm:mt-5 sm:text-3xl md:text-[2.65rem] lg:text-5xl lg:leading-[1.1]">
+          <h2 className="mt-3 text-[clamp(1.4rem,5.2vw,3rem)] font-bold leading-[1.18] tracking-tight text-navy sm:mt-5 sm:leading-[1.12] lg:leading-[1.1]">
             When we focus on trust and clear paperwork, everyone wins.
           </h2>
 
-          <div className="mt-6 space-y-4 text-sm leading-relaxed text-muted sm:mt-8 sm:space-y-5 sm:text-base md:text-[1.05rem]">
+          <div className="mt-5 space-y-3.5 text-sm leading-relaxed text-muted sm:mt-8 sm:space-y-5 sm:text-base md:text-[1.05rem]">
             <p>
               For over a decade, {siteConfig.legalName} has planned and
               delivered residential layouts across Bengaluru&apos;s eastern growth
@@ -105,31 +105,34 @@ export function AboutUsSection({ variant = "home" }: AboutUsSectionProps) {
           {variant === "home" ? (
             <Link
               href="/about"
-              className="mt-8 inline-block w-full border border-forest px-6 py-3.5 text-center text-sm font-semibold uppercase tracking-[0.14em] text-forest transition hover:bg-forest hover:text-white sm:mt-10 sm:w-auto sm:px-8"
+              className="mt-6 inline-flex min-h-11 w-full items-center justify-center border border-forest px-6 py-3.5 text-center text-xs font-semibold uppercase tracking-[0.12em] text-forest transition hover:bg-forest hover:text-white sm:mt-10 sm:min-h-0 sm:w-auto sm:px-8 sm:text-sm sm:tracking-[0.14em]"
             >
               About us
             </Link>
           ) : (
             <Link
               href="/projects"
-              className="group mt-8 inline-flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.14em] text-forest transition hover:text-navy sm:mt-10"
+              className="group mt-6 inline-flex min-h-11 items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-forest transition hover:text-navy sm:mt-10 sm:min-h-0 sm:gap-3 sm:text-sm sm:tracking-[0.14em]"
             >
               View our projects
               <span
-                className="block h-px w-10 bg-forest transition group-hover:w-14 group-hover:bg-navy"
+                className="block h-px w-8 bg-forest transition group-hover:w-14 group-hover:bg-navy sm:w-10"
                 aria-hidden
               />
             </Link>
           )}
         </div>
 
-        <div className="grid grid-cols-2 gap-8 sm:gap-10 lg:flex lg:flex-col lg:justify-center lg:gap-12 lg:py-6">
+        <div className="grid min-w-0 grid-cols-1 gap-5 sm:grid-cols-3 sm:gap-6 lg:flex lg:flex-col lg:justify-center lg:gap-10 lg:py-4">
           {aboutStats.map((stat, i) => (
-            <div key={stat.label}>
-              <p className="text-3xl font-bold leading-none text-forest sm:text-4xl md:text-5xl lg:text-6xl">
+            <div
+              key={stat.label}
+              className="flex min-w-0 items-baseline gap-3 border-t border-navy/10 pt-4 sm:block sm:border-0 sm:pt-0"
+            >
+              <p className="shrink-0 text-[clamp(1.75rem,6vw,3.75rem)] font-bold leading-none text-forest">
                 <CountUpStat value={stat.value} delay={i * 140} />
               </p>
-              <p className="mt-2 text-sm font-bold leading-snug text-navy sm:mt-3 sm:text-base md:text-lg lg:text-xl">
+              <p className="text-sm font-bold leading-snug text-navy sm:mt-2 sm:text-base md:mt-3 md:text-lg lg:text-xl">
                 {stat.label}
               </p>
             </div>

@@ -125,7 +125,10 @@ export function ProjectsShowcase({ showListings = true }: ProjectsShowcaseProps)
 
   // Homepage: category “What we do” panel only
   return (
-    <section id="what-we-do" className="relative py-14 sm:py-20 md:py-28">
+    <section
+      id="what-we-do"
+      className="relative overflow-x-clip py-12 sm:py-20 md:py-28"
+    >
       <div
         className="pointer-events-none absolute inset-0 overflow-hidden"
         aria-hidden
@@ -137,31 +140,31 @@ export function ProjectsShowcase({ showListings = true }: ProjectsShowcaseProps)
         </div>
       </div>
 
-      <div className="relative z-10 mx-auto max-w-6xl px-5 md:px-8">
-        <div className="relative overflow-hidden">
+      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-5 md:px-8">
+        <div className="relative min-w-0">
           <div className="relative flex min-h-7 items-center sm:min-h-8">
             <span
               aria-hidden
-              className="absolute left-0 top-1/2 h-[3px] w-12 -translate-y-1/2 bg-[#e8c84a] sm:w-14"
+              className="absolute left-0 top-1/2 h-[3px] w-10 -translate-y-1/2 bg-[#e8c84a] sm:w-14"
             />
-            <p className="relative pl-[4rem] text-[10px] font-semibold uppercase tracking-[0.18em] text-muted sm:pl-[4.75rem] sm:text-xs sm:tracking-[0.22em]">
+            <p className="relative pl-[3.5rem] text-[10px] font-semibold uppercase tracking-[0.16em] text-muted sm:pl-[4.75rem] sm:text-xs sm:tracking-[0.22em]">
               What we do
             </p>
           </div>
         </div>
 
-        <h2 className="mt-5 max-w-4xl text-[1.4rem] font-bold leading-[1.15] tracking-tight text-navy sm:mt-6 sm:text-2xl md:text-[2.65rem] lg:text-5xl lg:leading-[1.08]">
+        <h2 className="mt-4 max-w-4xl text-[clamp(1.35rem,5.5vw,3rem)] font-bold leading-[1.18] tracking-tight text-navy sm:mt-6 sm:leading-[1.12] lg:leading-[1.08]">
           We have a vision for residential land that lasts generations.
         </h2>
 
-        <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted sm:mt-5 sm:text-base">
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted sm:mt-5 sm:text-base">
           Choose a category to see how we approach villa plots, live layouts and
           corridor projects — then open listings with clear paperwork.
         </p>
 
-        <div className="relative mt-8 sm:mt-10">
+        <div className="relative mt-7 sm:mt-10">
           <div
-            className="scrollbar-hide -mx-5 flex snap-x snap-mandatory gap-x-5 overflow-x-auto border-b border-navy/10 px-5 pb-px sm:gap-x-7 md:mx-0 md:px-0"
+            className="scrollbar-hide -mx-4 flex snap-x snap-mandatory gap-x-4 overflow-x-auto overscroll-x-contain border-b border-navy/10 px-4 pb-px sm:-mx-5 sm:gap-x-7 sm:px-5 md:mx-0 md:px-0"
             role="tablist"
             aria-label="Project categories"
           >
@@ -174,7 +177,7 @@ export function ProjectsShowcase({ showListings = true }: ProjectsShowcaseProps)
                   role="tab"
                   aria-selected={isActive}
                   onClick={() => setActiveId(category.id)}
-                  className={`relative shrink-0 snap-start whitespace-nowrap pb-3 text-[11px] font-semibold tracking-wide transition sm:pb-4 sm:text-xs md:text-sm lg:text-base ${
+                  className={`relative shrink-0 snap-start whitespace-nowrap py-3 pb-3 text-[11px] font-semibold tracking-wide transition sm:py-0 sm:pb-4 sm:text-xs md:text-sm lg:text-base ${
                     isActive ? "text-forest" : "text-navy/45 hover:text-navy/70"
                   }`}
                 >
@@ -191,7 +194,7 @@ export function ProjectsShowcase({ showListings = true }: ProjectsShowcaseProps)
           </div>
         </div>
 
-        <div className="mt-8 grid items-start gap-6 sm:mt-10 sm:gap-8 lg:mt-14 lg:grid-cols-2 lg:items-center lg:gap-16">
+        <div className="mt-6 grid min-w-0 items-start gap-5 sm:mt-10 sm:gap-8 lg:mt-14 lg:grid-cols-2 lg:items-center lg:gap-16">
           <AnimatePresence mode="wait">
             <motion.div
               key={`${active.id}-image`}
@@ -199,7 +202,7 @@ export function ProjectsShowcase({ showListings = true }: ProjectsShowcaseProps)
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.35 }}
-              className="relative aspect-[3/2] w-full overflow-hidden bg-navy sm:aspect-[4/3]"
+              className="relative aspect-[16/10] w-full min-w-0 overflow-hidden bg-navy sm:aspect-[4/3]"
             >
               <Image
                 src={active.image}
@@ -221,7 +224,7 @@ export function ProjectsShowcase({ showListings = true }: ProjectsShowcaseProps)
               transition={{ duration: 0.35, delay: 0.05 }}
               className="min-w-0"
             >
-              <h3 className="text-lg font-bold leading-tight tracking-tight text-navy sm:text-xl md:text-2xl lg:text-4xl">
+              <h3 className="text-[clamp(1.05rem,4vw,2.25rem)] font-bold leading-snug tracking-tight text-navy sm:leading-tight">
                 {active.headline}
               </h3>
               <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted sm:mt-4 sm:text-base md:mt-5 md:text-lg">
@@ -229,7 +232,7 @@ export function ProjectsShowcase({ showListings = true }: ProjectsShowcaseProps)
               </p>
               <Link
                 href={active.ctaHref}
-                className="group mt-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-forest transition hover:text-navy sm:mt-8 sm:gap-3 sm:text-sm sm:tracking-[0.14em]"
+                className="group mt-5 inline-flex min-h-11 items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-forest transition hover:text-navy sm:mt-8 sm:min-h-0 sm:gap-3 sm:text-sm sm:tracking-[0.14em]"
               >
                 {active.ctaLabel}
                 <span
