@@ -19,13 +19,13 @@ const sizes = {
     src: "/js-just-logo.png",
     width: 200,
     height: 66,
-    className: "h-8 w-auto max-w-[11.5rem] sm:h-10 sm:max-w-none md:h-12",
+    className: "h-8 w-auto max-w-[9rem] sm:h-10 sm:max-w-none md:h-12",
   },
   footer: {
     src: "/logo-transparent.png",
     width: 180,
     height: 62,
-    className: "h-12 w-auto drop-shadow-sm",
+    className: "h-9 w-auto max-w-[10rem] drop-shadow-sm sm:h-11 sm:max-w-none md:h-12",
   },
 } as const;
 
