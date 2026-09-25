@@ -68,7 +68,7 @@ export function Hero() {
         fill
         sizes="100vw"
         priority
-        className="scale-[1.12] object-cover object-[58%_78%] lg:object-[45%_78%]"
+        className="object-cover object-[58%_center] lg:object-center"
       />
 
       {/* Directional scrim: deep on the left where the copy sits, clearing to
@@ -77,9 +77,17 @@ export function Hero() {
         className="absolute inset-0 bg-gradient-to-t from-navy-deep via-navy-deep/75 to-navy-deep/30 lg:bg-[linear-gradient(100deg,var(--color-navy-deep)_0%,color-mix(in_srgb,var(--color-navy-deep)_88%,transparent)_38%,color-mix(in_srgb,var(--color-navy-deep)_45%,transparent)_62%,transparent_92%)]"
         aria-hidden
       />
-      {/* Top fade so the transparent header always has something to sit on. */}
+      {/* Tall, full-width top fade: gives the transparent header something to
+          sit on and fully conceals the studio watermark baked into the top of
+          the render. Kept soft and edge-to-edge so no seam is visible. */}
       <div
-        className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-navy-deep/85 to-transparent"
+        className="absolute inset-x-0 top-0 h-[42%] bg-[linear-gradient(to_bottom,var(--color-navy-deep)_0%,var(--color-navy-deep)_26%,color-mix(in_srgb,var(--color-navy-deep)_78%,transparent)_48%,color-mix(in_srgb,var(--color-navy-deep)_40%,transparent)_72%,transparent_100%)]"
+        aria-hidden
+      />
+      {/* Bottom fade so the hero dissolves into the stats band below instead
+          of ending on a hard edge of bright grass. */}
+      <div
+        className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-navy-deep via-navy-deep/70 to-transparent"
         aria-hidden
       />
 

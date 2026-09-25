@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { siteConfig } from "@/lib/site";
 
@@ -143,16 +142,14 @@ function AnimatedStatValue({
 
 export function TrustStrip() {
   return (
-    <section id="trust" className="relative overflow-hidden">
-      <Image
-        src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2000&q=80"
-        alt=""
-        fill
-        sizes="100vw"
-        className="object-cover"
+    <section id="trust" className="relative overflow-hidden bg-navy-deep">
+      {/* Subtle emerald wash so the band reads as part of the hero, not a
+          separate photo strip. */}
+      <div
+        className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,color-mix(in_srgb,var(--color-forest)_16%,transparent)_0%,transparent_70%)]"
+        aria-hidden
       />
-      <div className="absolute inset-0 bg-navy/88" />
-      <div className="relative mx-auto grid max-w-6xl grid-cols-2 gap-x-4 gap-y-7 px-4 py-10 sm:gap-8 sm:px-5 sm:py-12 md:grid-cols-4 md:gap-6 md:px-8 md:py-14">
+      <div className="relative mx-auto grid max-w-6xl grid-cols-2 gap-x-4 gap-y-7 px-4 py-12 sm:gap-8 sm:px-5 sm:py-14 md:grid-cols-4 md:gap-6 md:px-8 md:py-16">
         {siteConfig.stats.map((stat, i) => (
           <motion.div
             key={stat.label}
