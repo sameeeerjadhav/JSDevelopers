@@ -62,7 +62,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
             {project.status}
           </span>
 
-          <span className="absolute left-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-white text-navy shadow-lg transition group-hover:scale-105 group-hover:bg-[#e8c84a]">
+          <span className="absolute left-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-white text-navy shadow-lg transition group-hover:scale-105 group-hover:bg-leaf group-hover:text-white">
             <ArrowUpRight />
           </span>
 
@@ -76,7 +76,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
             <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-white/75">
               {project.tagline || project.description}
             </p>
-            <p className="mt-3 text-sm font-bold text-[#f6d86b]">
+            <p className="mt-3 text-sm font-bold text-leaf">
               {project.priceLabel}
             </p>
 

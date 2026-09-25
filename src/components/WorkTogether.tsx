@@ -37,14 +37,14 @@ export function WorkTogether({ variant = "default" }: WorkTogetherProps) {
       >
         <div className="flex items-center justify-center gap-2 sm:gap-4">
           <span
-            className="block h-px w-5 shrink-0 bg-[#e8c84a]/70 sm:w-16"
+            className="block h-px w-5 shrink-0 bg-leaf/70 sm:w-16"
             aria-hidden
           />
-          <p className="text-center text-[9px] font-bold uppercase tracking-[0.16em] text-[#e8c84a] sm:text-xs sm:tracking-[0.28em] md:text-sm">
+          <p className="text-center text-[9px] font-bold uppercase tracking-[0.16em] text-leaf sm:text-xs sm:tracking-[0.28em] md:text-sm">
             Buy with confidence
           </p>
           <span
-            className="block h-px w-5 shrink-0 bg-[#e8c84a]/70 sm:w-16"
+            className="block h-px w-5 shrink-0 bg-leaf/70 sm:w-16"
             aria-hidden
           />
         </div>
@@ -61,7 +61,7 @@ export function WorkTogether({ variant = "default" }: WorkTogetherProps) {
         <div className="mx-auto mt-5 grid w-full max-w-xs grid-cols-1 gap-2 sm:mt-10 sm:flex sm:max-w-none sm:flex-wrap sm:items-center sm:justify-center sm:gap-3">
           <Link
             href="/contact"
-            className="inline-flex min-h-11 w-full items-center justify-center bg-[#e8c84a] px-4 py-3 text-center text-[11px] font-semibold uppercase tracking-wide text-navy transition hover:bg-[#f0d45a] sm:w-auto sm:px-8 sm:py-3.5 sm:text-sm"
+            className="inline-flex min-h-11 w-full items-center justify-center bg-leaf px-4 py-3 text-center text-[11px] font-semibold uppercase tracking-wide text-navy-deep transition hover:bg-white sm:w-auto sm:px-8 sm:py-3.5 sm:text-sm"
           >
             Book a site visit
           </Link>

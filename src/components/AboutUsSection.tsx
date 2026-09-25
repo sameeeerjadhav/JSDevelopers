@@ -61,19 +61,9 @@ export function AboutUsSection({ variant = "home" }: AboutUsSectionProps) {
         variant === "page" ? "bg-white" : ""
       }`}
     >
-      <div
-        className="pointer-events-none absolute inset-0 overflow-hidden"
-        aria-hidden
-      >
-        <div
-          className="absolute -right-24 top-1/2 hidden h-[140%] w-72 -translate-y-1/2 bg-[#f6e7a8] lg:block"
-          style={{ clipPath: "polygon(100% 0, 0 50%, 100% 100%)" }}
-        />
-      </div>
-
       <div className="relative z-10 mx-auto grid max-w-6xl min-w-0 gap-8 px-4 sm:gap-12 sm:px-5 md:gap-14 md:px-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-20">
         <div className="min-w-0 max-w-2xl">
-          <p className="flex items-center gap-2.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-muted sm:gap-3 sm:text-xs sm:tracking-[0.22em]">
+          <p className="flex items-center gap-2.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-forest sm:gap-3 sm:text-xs sm:tracking-[0.22em]">
             <span className="block h-px w-5 bg-forest sm:w-8" aria-hidden />
             Who we are
           </p>

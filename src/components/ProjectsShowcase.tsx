@@ -42,9 +42,9 @@ export function ProjectsShowcase({ showListings = true }: ProjectsShowcaseProps)
               <div className="relative flex min-h-7 items-center sm:min-h-8">
                 <span
                   aria-hidden
-                  className="absolute left-0 top-1/2 h-[3px] w-12 -translate-y-1/2 bg-[#e8c84a] sm:w-14"
+                  className="absolute left-0 top-1/2 h-px w-12 -translate-y-1/2 bg-forest sm:w-14"
                 />
-                <p className="relative pl-[4rem] text-[10px] font-semibold uppercase tracking-[0.18em] text-muted sm:pl-[4.75rem] sm:text-xs sm:tracking-[0.22em]">
+                <p className="relative pl-[4rem] text-[10px] font-semibold uppercase tracking-[0.18em] text-forest sm:pl-[4.75rem] sm:text-xs sm:tracking-[0.22em]">
                   Live listings
                 </p>
               </div>
@@ -129,25 +129,14 @@ export function ProjectsShowcase({ showListings = true }: ProjectsShowcaseProps)
       id="what-we-do"
       className="relative overflow-x-clip py-12 sm:py-20 md:py-28"
     >
-      <div
-        className="pointer-events-none absolute inset-0 overflow-hidden"
-        aria-hidden
-      >
-        <div className="absolute -right-6 top-10 hidden h-44 w-44 md:block lg:-right-2 lg:top-14">
-          <div className="absolute right-0 top-0 h-px w-36 rotate-[25deg] bg-[#e8c84a]/80" />
-          <div className="absolute right-5 top-7 h-px w-28 rotate-[25deg] bg-[#e8c84a]/55" />
-          <div className="absolute right-0 top-14 h-28 w-px bg-[#e8c84a]/35" />
-        </div>
-      </div>
-
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-5 md:px-8">
         <div className="relative min-w-0">
           <div className="relative flex min-h-7 items-center sm:min-h-8">
             <span
               aria-hidden
-              className="absolute left-0 top-1/2 h-[3px] w-10 -translate-y-1/2 bg-[#e8c84a] sm:w-14"
+              className="absolute left-0 top-1/2 h-px w-10 -translate-y-1/2 bg-forest sm:w-14"
             />
-            <p className="relative pl-[3.5rem] text-[10px] font-semibold uppercase tracking-[0.16em] text-muted sm:pl-[4.75rem] sm:text-xs sm:tracking-[0.22em]">
+            <p className="relative pl-[3.5rem] text-[10px] font-semibold uppercase tracking-[0.16em] text-forest sm:pl-[4.75rem] sm:text-xs sm:tracking-[0.22em]">
               What we do
             </p>
           </div>

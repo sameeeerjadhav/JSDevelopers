@@ -13,7 +13,7 @@ import { WorkTogether } from "@/components/WorkTogether";
 export default function HomePage() {
   return (
     <main className="overflow-x-hidden">
-      <Header />
+      <Header variant="overlay" />
       <Hero />
       <TrustStrip />
       <VideoTextBrand />
