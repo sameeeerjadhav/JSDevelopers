@@ -44,7 +44,7 @@ export function VideoTextBrand({
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-white py-16 sm:py-20 md:py-24 lg:py-28"
+      className="relative overflow-hidden bg-white py-12 sm:py-16 md:py-20"
       aria-labelledby="video-text-brand-heading"
     >
       <div className="relative z-10 mx-auto max-w-6xl px-5 md:px-8">
@@ -52,11 +52,52 @@ export function VideoTextBrand({
           JS Developers
         </h2>
 
-        <motion.div
-          className="relative mx-auto aspect-[1200/340] w-full max-w-5xl overflow-hidden bg-white"
-          initial={reduceMotion ? false : { opacity: 0, y: 28 }}
+        <motion.p
+          className="flex items-center justify-center gap-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-forest sm:text-xs"
+          initial={reduceMotion ? false : { opacity: 0, y: 10 }}
           animate={inView ? { opacity: 1, y: 0 } : undefined}
-          transition={{ duration: 0.7, ease: EASE }}
+          transition={{ duration: 0.6, ease: EASE }}
+        >
+          <motion.span
+            className="block h-px bg-forest"
+            initial={reduceMotion ? false : { width: 0 }}
+            animate={inView ? { width: "2rem" } : undefined}
+            transition={{ duration: 0.7, ease: EASE, delay: 0.15 }}
+            aria-hidden
+          />
+          Since 2013
+          <motion.span
+            className="block h-px bg-forest"
+            initial={reduceMotion ? false : { width: 0 }}
+            animate={inView ? { width: "2rem" } : undefined}
+            transition={{ duration: 0.7, ease: EASE, delay: 0.15 }}
+            aria-hidden
+          />
+        </motion.p>
+
+        <motion.div
+          className="relative mx-auto mt-8 aspect-[1200/340] w-full max-w-4xl overflow-hidden bg-white sm:mt-10"
+          initial={reduceMotion ? false : { opacity: 0, y: 28 }}
+          animate={
+            inView
+              ? reduceMotion
+                ? { opacity: 1, y: 0 }
+                : { opacity: 1, y: [0, -6, 0] }
+              : undefined
+          }
+          transition={
+            reduceMotion
+              ? { duration: 0.7, ease: EASE }
+              : {
+                  opacity: { duration: 0.7, ease: EASE },
+                  y: {
+                    duration: 6,
+                    ease: "easeInOut",
+                    repeat: Infinity,
+                    delay: 1.6,
+                  },
+                }
+          }
         >
           <motion.div
             className="absolute inset-0"
@@ -158,10 +199,27 @@ export function VideoTextBrand({
               mask={`url(#${maskId})`}
             />
           </svg>
+
+          {/* Light sweep that travels across the wordmark after the reveal. */}
+          {!reduceMotion && (
+            <motion.div
+              className="pointer-events-none absolute inset-y-0 w-1/3 bg-[linear-gradient(105deg,transparent_0%,rgba(255,255,255,0.55)_50%,transparent_100%)] mix-blend-overlay"
+              initial={{ x: "-140%" }}
+              animate={inView ? { x: "420%" } : undefined}
+              transition={{
+                duration: 1.6,
+                ease: "easeInOut",
+                delay: 1.7,
+                repeat: Infinity,
+                repeatDelay: 4.5,
+              }}
+              aria-hidden
+            />
+          )}
         </motion.div>
 
         <motion.p
-          className="mt-8 text-center text-[10px] font-bold uppercase text-navy sm:mt-10 sm:text-sm"
+          className="mt-4 text-center text-[10px] font-bold uppercase text-ink sm:mt-6 sm:text-sm"
           initial={
             reduceMotion
               ? false
