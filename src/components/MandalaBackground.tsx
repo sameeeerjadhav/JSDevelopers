@@ -87,15 +87,23 @@ export function MandalaBackground({
           className={`${mark.className} mix-blend-multiply`}
           style={{ opacity: baseOpacity * (mark.opacityScale ?? 1) }}
         >
-          <Image
-            src="/mandala.png"
-            alt=""
-            fill
-            unoptimized
-            sizes="420px"
-            className={`object-contain invert ${mark.objectPosition}`}
-            priority={false}
-          />
+          {/* Inner layer carries the continuous spin, independent of the
+              outer div's fixed placement/base rotation above. Slightly
+              different duration per mark so they drift out of sync. */}
+          <div
+            className="mandala-spin relative h-full w-full"
+            style={{ animationDuration: `${90 + i * 22}s` }}
+          >
+            <Image
+              src="/mandala.png"
+              alt=""
+              fill
+              unoptimized
+              sizes="420px"
+              className={`object-contain invert ${mark.objectPosition}`}
+              priority={false}
+            />
+          </div>
         </div>
       ))}
     </div>
