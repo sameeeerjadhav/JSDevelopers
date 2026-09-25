@@ -52,28 +52,36 @@ export function VideoTextBrand({
           JS Developers
         </h2>
 
-        <motion.p
-          className="flex items-center justify-center gap-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-forest sm:text-xs"
-          initial={reduceMotion ? false : { opacity: 0, y: 10 }}
-          animate={inView ? { opacity: 1, y: 0 } : undefined}
-          transition={{ duration: 0.6, ease: EASE }}
+        <motion.div
+          className="flex justify-center"
+          initial={reduceMotion ? false : { opacity: 0, scale: 0.85, y: 12 }}
+          animate={inView ? { opacity: 1, scale: 1, y: 0 } : undefined}
+          transition={{ duration: 0.55, ease: EASE }}
         >
-          <motion.span
-            className="block h-px bg-forest"
-            initial={reduceMotion ? false : { width: 0 }}
-            animate={inView ? { width: "2rem" } : undefined}
-            transition={{ duration: 0.7, ease: EASE, delay: 0.15 }}
-            aria-hidden
-          />
-          Since 2013
-          <motion.span
-            className="block h-px bg-forest"
-            initial={reduceMotion ? false : { width: 0 }}
-            animate={inView ? { width: "2rem" } : undefined}
-            transition={{ duration: 0.7, ease: EASE, delay: 0.15 }}
-            aria-hidden
-          />
-        </motion.p>
+          <div className="group relative inline-flex items-center gap-2.5 rounded-full border border-forest/25 bg-mist px-5 py-2">
+            {/* Pulsing dot — a small sign of life on an otherwise static badge */}
+            <span className="relative flex h-2 w-2" aria-hidden>
+              <motion.span
+                className="absolute inline-flex h-full w-full rounded-full bg-leaf"
+                animate={
+                  reduceMotion
+                    ? undefined
+                    : { scale: [1, 2.2], opacity: [0.6, 0] }
+                }
+                transition={{
+                  duration: 1.8,
+                  ease: "easeOut",
+                  repeat: Infinity,
+                  delay: 2,
+                }}
+              />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-forest" />
+            </span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-forest sm:text-xs">
+              Since 2013
+            </span>
+          </div>
+        </motion.div>
 
         <motion.div
           className="relative mx-auto mt-8 aspect-[1200/340] w-full max-w-4xl overflow-hidden bg-white sm:mt-10"

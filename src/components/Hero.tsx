@@ -246,8 +246,10 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Stats row — shares the hero screen, sits on its own subtle rule. */}
-      <div className="relative z-10 border-t border-white/12 bg-navy-deep/40 backdrop-blur-sm">
+      {/* Stats row — shares the hero screen, sits on its own subtle rule.
+          Fades from navy into transparent at its base so the hero dissolves
+          into the white section below instead of ending on a hard edge. */}
+      <div className="relative z-10 border-t border-white/12 bg-gradient-to-b from-navy-deep/40 via-navy-deep/25 to-white pb-10 backdrop-blur-sm sm:pb-14">
         <div className="mx-auto grid max-w-7xl grid-cols-2 gap-y-6 px-4 py-6 sm:px-5 sm:py-7 md:grid-cols-4 md:gap-y-0 md:px-8">
           {siteConfig.stats.map((stat, i) => (
             <motion.div
