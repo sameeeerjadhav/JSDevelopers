@@ -1,132 +1,153 @@
 "use client";
 
-import { useInView } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
 import { siteConfig } from "@/lib/site";
 
-const aboutStats = siteConfig.stats.slice(0, 3);
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 type AboutUsSectionProps = {
   variant?: "home" | "page";
 };
 
-function CountUpStat({ value, delay = 0 }: { value: string; delay?: number }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-10%" });
-  const [shown, setShown] = useState("0+");
-
-  const numeric = parseInt(value, 10);
-  const suffix = value.replace(/^\d+/, "") || "+";
-  const canCount = !Number.isNaN(numeric);
-
-  useEffect(() => {
-    if (!inView) return;
-
-    if (!canCount) {
-      setShown(value);
-      return;
-    }
-
-    let frame = 0;
-    const startTimer = window.setTimeout(() => {
-      const duration = 1100;
-      const start = performance.now();
-
-      const tick = (now: number) => {
-        const t = Math.min(1, (now - start) / duration);
-        const eased = 1 - Math.pow(1 - t, 3);
-        setShown(`${Math.round(numeric * eased)}${suffix}`);
-        if (t < 1) {
-          frame = requestAnimationFrame(tick);
-        }
-      };
-
-      frame = requestAnimationFrame(tick);
-    }, delay);
-
-    return () => {
-      window.clearTimeout(startTimer);
-      cancelAnimationFrame(frame);
-    };
-  }, [inView, canCount, numeric, suffix, value, delay]);
-
-  return <span ref={ref}>{shown}</span>;
-}
+/** What the company actually does — scannable, not three dense paragraphs. */
+const PILLARS = [
+  {
+    no: "01",
+    title: "We plan the layout",
+    body: "DC conversion, MPA/DTCP approvals and a master plan laid out before a single plot is sold.",
+  },
+  {
+    no: "02",
+    title: "We build the infrastructure",
+    body: "CC roads, street lighting, water lines and landscaping — finished on site, not promised in a brochure.",
+  },
+  {
+    no: "03",
+    title: "We stay through registration",
+    body: "Banker coordination, documentation walkthroughs and registration support after you book.",
+  },
+];
 
 export function AboutUsSection({ variant = "home" }: AboutUsSectionProps) {
+  const reduceMotion = useReducedMotion();
+
+  const reveal = (delay = 0) => ({
+    initial: reduceMotion ? false : { opacity: 0, y: 24 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, margin: "-12%" },
+    transition: { duration: 0.65, ease: EASE, delay },
+  });
+
   return (
     <section
-      className={`relative overflow-x-clip py-12 sm:py-20 md:py-28 ${
+      className={`relative overflow-hidden py-16 sm:py-24 md:py-28 ${
         variant === "page" ? "bg-white" : ""
       }`}
     >
-      <div className="relative z-10 mx-auto grid max-w-6xl min-w-0 gap-8 px-4 sm:gap-12 sm:px-5 md:gap-14 md:px-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-20">
-        <div className="min-w-0 max-w-2xl">
-          <p className="flex items-center gap-2.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-forest sm:gap-3 sm:text-xs sm:tracking-[0.22em]">
-            <span className="block h-px w-5 bg-forest sm:w-8" aria-hidden />
+      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-5 md:px-8">
+        {/* ── Header ───────────────────────────────────────────────── */}
+        <motion.div {...reveal()} className="max-w-3xl">
+          <p className="flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-forest sm:text-xs">
+            <span className="block h-px w-8 bg-forest" aria-hidden />
             Who we are
           </p>
 
-          <h2 className="mt-3 text-[clamp(1.4rem,5.2vw,3rem)] font-bold leading-[1.18] tracking-tight text-navy sm:mt-5 sm:leading-[1.12] lg:leading-[1.1]">
-            When we focus on trust and clear paperwork, everyone wins.
+          <h2 className="mt-5 text-[clamp(1.75rem,5vw,3.25rem)] font-bold leading-[1.1] tracking-[-0.02em] text-ink">
+            A developer that hands you
+            <br className="hidden sm:block" />{" "}
+            <span className="text-forest">land you can verify.</span>
           </h2>
 
-          <div className="mt-5 space-y-3.5 text-sm leading-relaxed text-muted sm:mt-8 sm:space-y-5 sm:text-base md:text-[1.05rem]">
-            <p>
-              For over a decade, {siteConfig.legalName} has planned and
-              delivered residential layouts across Bengaluru&apos;s eastern growth
-              corridors — where families and investors want land they can
-              verify, not just admire in a brochure.
-            </p>
-            <p>
-              We specialise in MPA-approved and RERA-registered villa plot
-              projects near Whitefield, Malur and Hoskote. Our team stays
-              involved from the first site visit through banker coordination and
-              registration support.
-            </p>
-            <p>
-              {siteConfig.iso} — with a Bengaluru office you can walk into, a
-              phone line that gets answered, and layouts you can inspect on the
-              ground before you commit.
-            </p>
-          </div>
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
+            For over a decade, {siteConfig.legalName} has planned and delivered
+            residential layouts across Bengaluru&apos;s eastern growth
+            corridors — near Whitefield, Malur and Hoskote.
+          </p>
+        </motion.div>
 
-          {variant === "home" ? (
-            <Link
-              href="/about"
-              className="mt-6 inline-flex min-h-11 w-full items-center justify-center border border-forest px-6 py-3.5 text-center text-xs font-semibold uppercase tracking-[0.12em] text-forest transition hover:bg-forest hover:text-white sm:mt-10 sm:min-h-0 sm:w-auto sm:px-8 sm:text-sm sm:tracking-[0.14em]"
-            >
-              About us
-            </Link>
-          ) : (
-            <Link
-              href="/projects"
-              className="group mt-6 inline-flex min-h-11 items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-forest transition hover:text-navy sm:mt-10 sm:min-h-0 sm:gap-3 sm:text-sm sm:tracking-[0.14em]"
-            >
-              View our projects
-              <span
-                className="block h-px w-8 bg-forest transition group-hover:w-14 group-hover:bg-navy sm:w-10"
+        {/* ── Photo + credentials ──────────────────────────────────── */}
+        <div className="mt-12 grid gap-10 sm:mt-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
+          <motion.div {...reveal(0.1)} className="relative">
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-ink">
+              <Image
+                src="/projects/js-lakeview-garden/updates/update-9.jpg"
+                alt="Completed CC roads, street lighting and plot markers at Jeevan Sagar Lakeview Garden"
+                fill
+                sizes="(min-width: 1024px) 55vw, 100vw"
+                className="object-cover"
+              />
+              <div
+                className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent"
                 aria-hidden
               />
-            </Link>
-          )}
-        </div>
-
-        <div className="grid min-w-0 grid-cols-1 gap-5 sm:grid-cols-3 sm:gap-6 lg:flex lg:flex-col lg:justify-center lg:gap-10 lg:py-4">
-          {aboutStats.map((stat, i) => (
-            <div
-              key={stat.label}
-              className="flex min-w-0 items-baseline gap-3 border-t border-navy/10 pt-4 sm:block sm:border-0 sm:pt-0"
-            >
-              <p className="shrink-0 text-[clamp(1.75rem,6vw,3.75rem)] font-bold leading-none text-forest">
-                <CountUpStat value={stat.value} delay={i * 140} />
-              </p>
-              <p className="text-sm font-bold leading-snug text-navy sm:mt-2 sm:text-base md:mt-3 md:text-lg lg:text-xl">
-                {stat.label}
+              <p className="absolute inset-x-0 bottom-0 p-5 text-sm font-medium text-white sm:p-6">
+                Lakeview Garden, Bagepalli — roads, lighting and plots on the
+                ground today.
               </p>
             </div>
-          ))}
+
+            {/* ISO badge overlapping the photo corner */}
+            <div className="absolute -right-2 -top-5 rounded-xl bg-white px-5 py-3 shadow-[0_18px_40px_-16px_rgba(12,19,16,0.35)] ring-1 ring-ink/5 sm:right-6">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted">
+                Certified
+              </p>
+              <p className="mt-0.5 text-sm font-bold text-forest sm:text-base">
+                {siteConfig.iso}
+              </p>
+            </div>
+          </motion.div>
+
+          <div className="min-w-0">
+            {PILLARS.map((pillar, i) => (
+              <motion.div
+                key={pillar.no}
+                {...reveal(0.15 + i * 0.1)}
+                className="border-t border-ink/10 py-6 first:border-t-0 first:pt-0 sm:py-7"
+              >
+                <div className="flex gap-4 sm:gap-5">
+                  <span className="shrink-0 text-xs font-bold tracking-[0.1em] text-leaf">
+                    {pillar.no}
+                  </span>
+                  <div className="min-w-0">
+                    <h3 className="text-lg font-bold leading-snug text-ink sm:text-xl">
+                      {pillar.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted sm:text-base">
+                      {pillar.body}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+
+            <motion.div {...reveal(0.45)} className="mt-8">
+              {variant === "home" ? (
+                <Link
+                  href="/about"
+                  className="group inline-flex min-h-[3rem] w-full items-center justify-center gap-3 bg-ink px-7 py-3 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-forest sm:w-auto sm:px-9 sm:text-[0.8rem]"
+                >
+                  About us
+                  <span
+                    className="block h-px w-6 bg-white/60 transition-[width] duration-300 group-hover:w-10"
+                    aria-hidden
+                  />
+                </Link>
+              ) : (
+                <Link
+                  href="/projects"
+                  className="group inline-flex min-h-[3rem] w-full items-center justify-center gap-3 bg-ink px-7 py-3 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-forest sm:w-auto sm:px-9 sm:text-[0.8rem]"
+                >
+                  View our projects
+                  <span
+                    className="block h-px w-6 bg-white/60 transition-[width] duration-300 group-hover:w-10"
+                    aria-hidden
+                  />
+                </Link>
+              )}
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>

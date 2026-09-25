@@ -5,7 +5,6 @@ import { Hero } from "@/components/Hero";
 // import { KarnatakaPresence } from "@/components/KarnatakaPresence";
 import { MandalaBackground } from "@/components/MandalaBackground";
 import { ProjectsShowcase } from "@/components/ProjectsShowcase";
-import { TrustStrip } from "@/components/TrustStrip";
 import { VideoTextBrand } from "@/components/VideoTextBrand";
 import { WhyUs } from "@/components/WhyUs";
 import { WorkTogether } from "@/components/WorkTogether";
@@ -15,7 +14,6 @@ export default function HomePage() {
     <main className="overflow-x-hidden">
       <Header variant="overlay" />
       <Hero />
-      <TrustStrip />
       <VideoTextBrand />
 
       {/* One continuous mandala band — avoids cuts between white sections */}

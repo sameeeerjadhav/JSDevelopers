@@ -43,6 +43,48 @@ const HERO_SLIDES = [
   },
 ] as const;
 
+/** Counts up once on mount — the hero is above the fold, so no scroll gate. */
+function HeroCountUp({ value, delay = 0 }: { value: string; delay?: number }) {
+  const reduceMotion = useReducedMotion();
+  const numeric = parseInt(value, 10);
+  const suffix = value.replace(/^\d+/, "") || "+";
+  const canCount = !Number.isNaN(numeric);
+  const [shown, setShown] = useState(() => (canCount ? `0${suffix}` : value));
+
+  useEffect(() => {
+    if (!canCount || reduceMotion) {
+      setShown(value);
+      return;
+    }
+
+    let frame = 0;
+    const startTimer = window.setTimeout(() => {
+      const duration = 1200;
+      const start = performance.now();
+
+      const tick = (now: number) => {
+        const t = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - t, 3);
+        setShown(`${Math.round(numeric * eased)}${suffix}`);
+        if (t < 1) frame = requestAnimationFrame(tick);
+      };
+
+      frame = requestAnimationFrame(tick);
+    }, delay);
+
+    return () => {
+      window.clearTimeout(startTimer);
+      cancelAnimationFrame(frame);
+    };
+  }, [canCount, numeric, suffix, value, delay, reduceMotion]);
+
+  return (
+    <span aria-label={value}>
+      <span aria-hidden>{shown}</span>
+    </span>
+  );
+}
+
 export function Hero() {
   const reduceMotion = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
@@ -60,7 +102,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-[38rem] items-end overflow-hidden bg-navy-deep lg:min-h-[100svh] lg:items-center"
+      className="relative flex min-h-[44rem] flex-col overflow-hidden bg-navy-deep lg:min-h-[100svh]"
     >
       <Image
         src={HERO_IMAGE.src}
@@ -84,14 +126,16 @@ export function Hero() {
         className="absolute inset-x-0 top-0 h-[42%] bg-[linear-gradient(to_bottom,var(--color-navy-deep)_0%,var(--color-navy-deep)_26%,color-mix(in_srgb,var(--color-navy-deep)_78%,transparent)_48%,color-mix(in_srgb,var(--color-navy-deep)_40%,transparent)_72%,transparent_100%)]"
         aria-hidden
       />
-      {/* Bottom fade so the hero dissolves into the stats band below instead
-          of ending on a hard edge of bright grass. */}
+      {/* Bottom fade to solid navy so the hero flows seamlessly into the dark
+          stats band below — the two share the same base colour. */}
       <div
-        className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-navy-deep via-navy-deep/70 to-transparent"
+        className="absolute inset-x-0 bottom-0 h-56 bg-[linear-gradient(to_bottom,transparent_0%,color-mix(in_srgb,var(--color-navy-deep)_70%,transparent)_45%,var(--color-navy-deep)_100%)]"
         aria-hidden
       />
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-14 pt-32 sm:px-5 sm:pb-20 sm:pt-36 md:px-8 lg:py-32">
+      {/* Copy block — grows to fill, keeping it optically centred above the
+          stats row that shares this same screen. */}
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 items-end px-4 pb-10 pt-28 sm:px-5 sm:pt-32 md:px-8 lg:items-center lg:pb-16 lg:pt-32">
         <div className="min-w-0 max-w-[36rem]">
           <AnimatePresence mode="wait">
             <motion.p
@@ -199,6 +243,34 @@ export function Hero() {
               </p>
             ) : null}
           </div>
+        </div>
+      </div>
+
+      {/* Stats row — shares the hero screen, sits on its own subtle rule. */}
+      <div className="relative z-10 border-t border-white/12 bg-navy-deep/40 backdrop-blur-sm">
+        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-y-6 px-4 py-6 sm:px-5 sm:py-7 md:grid-cols-4 md:gap-y-0 md:px-8">
+          {siteConfig.stats.map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              initial={reduceMotion ? false : { opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.5,
+                ease: [0.22, 1, 0.36, 1],
+                delay: 0.5 + i * 0.1,
+              }}
+              className={`px-2 text-center md:px-6 ${
+                i > 0 ? "md:border-l md:border-white/12" : ""
+              }`}
+            >
+              <p className="text-2xl font-bold leading-none tracking-[-0.02em] text-white sm:text-3xl">
+                <HeroCountUp value={stat.value} delay={600 + i * 110} />
+              </p>
+              <p className="mt-1.5 text-[11px] font-medium leading-snug text-white/60 sm:text-xs">
+                {stat.label}
+              </p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
